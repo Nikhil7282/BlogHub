@@ -11,8 +11,8 @@ import ProtectedRoute from "./authorization/ProtectedRoute"
 import PublicRoute from './authorization/PublicRoute';
 import EditPost from './components/EditPost';
 
-export const url="https://blohhub.onrender.com"
-// export const url="http://localhost:8000"
+// export const url="https://blohhub.onrender.com"
+export const url="http://localhost:8000"
 
 function App() {
   return (

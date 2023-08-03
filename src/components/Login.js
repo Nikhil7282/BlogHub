@@ -3,6 +3,7 @@ import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import {useNavigate} from 'react-router-dom'
 import { url } from "../App";
 import axios from 'axios'
+// import jwt from 'jsonwebtoken'
 import { toast } from "react-toastify";
 
 export default function Login() {
@@ -15,6 +16,10 @@ export default function Login() {
     .then((res)=>{
       toast.success(res.data.message)
       // console.log(res.data.token)
+      // const userData=jwt.decode(res.data.token)
+      // console.log(userData);
+      sessionStorage.setItem('username',res.data.username)
+      sessionStorage.setItem('userId',res.data.userId)
       sessionStorage.setItem('token',res.data.token)
       Navigate('/user/dashboard')
     })
