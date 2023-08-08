@@ -5,6 +5,10 @@ import { Outlet,useNavigate } from 'react-router-dom';
 
 function User() {
   const Navigate=useNavigate()
+  const logout=()=>{
+    sessionStorage.clear()
+    Navigate('/login')
+  }
   return (
     <div>
        <Navbar bg="dark" expand="lg" variant="dark">
@@ -16,7 +20,8 @@ function User() {
               <Nav.Link onClick={()=>{Navigate('dashboard')}}>Dashboard</Nav.Link>
               <Nav.Link onClick={()=>{Navigate('addpost')}}>Add Post</Nav.Link>
               <Nav.Link onClick={()=>{Navigate('userpost')}}>My Post</Nav.Link>
-              {/* <Nav.Link onClick={()=>{Navigate('editpost')}}>My Post</Nav.Link> */}
+              <Nav.Link onClick={()=>{logout()}}>logout</Nav.Link>
+              {/* <Nav.Link>{sessionStorage.getItem('username')}</Nav.Link> */}
             </Nav>
           </Navbar.Collapse>
         </Container>

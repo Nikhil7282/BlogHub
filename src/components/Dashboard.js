@@ -4,7 +4,7 @@ import { url } from "../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { AiFillLike, AiFillDislike } from "react-icons/ai";
+import { AiFillLike} from "react-icons/ai";
 
 
 function Dashboard() {
@@ -27,7 +27,9 @@ function Dashboard() {
 
 
   //Likes
+  //64916d748804398d7414e228
   const handleLike=async(id,userId)=>{
+    // console.log(id);
     try {
       const post=await blogData.find((post)=>post._id===id)
       // console.log(post)
@@ -117,7 +119,7 @@ function Dashboard() {
                     {card.likes.some(
                       (userId) => userId === sessionStorage.getItem("userId")
                     ) ? (
-                      <AiFillDislike onClick={()=>{handleLike(card._id,sessionStorage.getItem("userId"))}}/>
+                      <AiFillLike onClick={()=>{handleLike(card._id,sessionStorage.getItem("userId"))}} style={{color:"red"}}/>
                     ) : (
                       <AiFillLike onClick={()=>{handleLike(card._id,sessionStorage.getItem("userId"))}} />
                     )}
