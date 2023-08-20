@@ -10,6 +10,7 @@ import User from './components/User';
 import ProtectedRoute from "./authorization/ProtectedRoute"
 import PublicRoute from './authorization/PublicRoute';
 import EditPost from './components/EditPost';
+import PostPage from './components/PostPage';
 
 // export const url="https://blohhub.onrender.com"
 export const url="http://localhost:8000"
@@ -57,6 +58,11 @@ function App() {
             <Route path='editpost' element={
               <ProtectedRoute>
               <EditPost/>
+            </ProtectedRoute>
+            }/>
+            <Route path='postPage/:id' element={
+              <ProtectedRoute>
+              <PostPage/>
             </ProtectedRoute>
             }/>
           </Route>

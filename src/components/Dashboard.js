@@ -29,6 +29,7 @@ function Dashboard() {
   //Likes
   //64916d748804398d7414e228
   const handleLike=async(id,userId)=>{
+    // e.preventDefault()
     // console.log(id);
     try {
       const post=await blogData.find((post)=>post._id===id)
@@ -103,6 +104,7 @@ function Dashboard() {
               text={
                 getRandomColor().toLowerCase() === "light" ? "dark" : "white"
               }
+              onClick={()=>Navigate(`/user/postPage/${card._id}`,{state:{card:card}})}
             >
               <Card.Body>
                 <Card.Title>{card.title}</Card.Title>
