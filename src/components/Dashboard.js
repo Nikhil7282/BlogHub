@@ -4,11 +4,9 @@ import { url } from "../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { AiFillLike} from "react-icons/ai";
-
+import { AiFillLike } from "react-icons/ai";
 
 function Dashboard() {
-  
   const Navigate = useNavigate();
   const [blogData, setBlogData] = useState([]);
 
@@ -16,7 +14,7 @@ function Dashboard() {
     sessionStorage.clear();
     Navigate("/login");
   };
-  
+
   useEffect(() => {
     if (sessionStorage.getItem("token")) {
       fetchData();
@@ -25,44 +23,43 @@ function Dashboard() {
     }
   }, []);
 
-
   //Likes
   //64916d748804398d7414e228
-  const handleLike=async(id,userId)=>{
+  const handleLike = async (id, userId) => {
     // e.preventDefault()
     // console.log(id);
     try {
-      const post=await blogData.find((post)=>post._id===id)
+      const post = await blogData.find((post) => post._id === id);
       // console.log(post)
-      const index=await post.likes.findIndex((user)=>user===userId)
+      const index = await post.likes.findIndex((user) => user === userId);
       // console.log(index)
       // console.log(id)
       // console.log(userId);
-      if(index===-1){
-        await axios.post(`${url}/blogs/likePost/${id}`,{
-          headers:{
-            Authorization:`Bearer ${sessionStorage.getItem("token")}`,
+      if (index === -1) {
+        await axios
+          .post(`${url}/blogs/likePost/${id}`, {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+          })
+          .then((res) => {
+            if (res) {
+              post.likes.push(userId);
+            }
+          });
+      } else {
+        await axios.post(`${url}/blogs/unLikePost/${id}`, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
-        })
-        .then((res)=>{
-          if(res){
-            post.likes.push(userId)
-          }
-        })
+        });
+        post.likes.splice(index, 1);
       }
-      else{
-        await axios.post(`${url}/blogs/unLikePost/${id}`,{
-          headers:{
-            Authorization:`Bearer ${sessionStorage.getItem("token")}`
-          }
-        })
-        post.likes.splice(index,1);
-      }
-      setBlogData([...blogData])
+      setBlogData([...blogData]);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const fetchData = async () => {
     try {
@@ -104,9 +101,14 @@ function Dashboard() {
               text={
                 getRandomColor().toLowerCase() === "light" ? "dark" : "white"
               }
-              onClick={()=>Navigate(`/user/postPage/${card._id}`,{state:{card:card}})}
             >
-              <Card.Body>
+              <Card.Body
+                onClick={() =>
+                  Navigate(`/user/postPage/${card._id}`, {
+                    state: { card: card },
+                  })
+                }
+              >
                 <Card.Title>{card.title}</Card.Title>
                 <Card.Text>{card.description}</Card.Text>
                 <Card.Text>{card.content}</Card.Text>
@@ -121,11 +123,28 @@ function Dashboard() {
                     {card.likes.some(
                       (userId) => userId === sessionStorage.getItem("userId")
                     ) ? (
-                      <AiFillLike onClick={()=>{handleLike(card._id,sessionStorage.getItem("userId"))}} style={{color:"red"}}/>
+                      <AiFillLike
+                        onClick={() => {
+                          handleLike(
+                            card._id,
+                            sessionStorage.getItem("userId")
+                          );
+                        }}
+                        style={{ color: "red" }}
+                      />
                     ) : (
-                      <AiFillLike onClick={()=>{handleLike(card._id,sessionStorage.getItem("userId"))}} />
+                      <AiFillLike
+                        onClick={() => {
+                          handleLike(
+                            card._id,
+                            sessionStorage.getItem("userId")
+                          );
+                        }}
+                      />
                     )}
-                    <span style={{ marginLeft: "5px" }}>{card.likes.length} Likes</span>
+                    <span style={{ marginLeft: "5px" }}>
+                      {card.likes.length} Likes
+                    </span>
                   </div>
                 </div>
               </Card.Footer>
