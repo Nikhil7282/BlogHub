@@ -1,53 +1,111 @@
-import React from 'react'
-import { useLocation, useParams } from 'react-router-dom'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import React, { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import axios from "axios";
+import { url } from "../App";
+import { AiFillDelete } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 function PostPage() {
-    const location=useLocation()
-    const {card}=location.state
-    // console.log(card);
-    const {id}=useParams()
+  const [comments, setComments] = useState([]);
+  const location = useLocation();
+  const { card } = location.state;
+  // console.log(card);
+  const { id } = useParams();
+  // console.log(id)
+  useEffect(() => {
+    axios
+      .get(`${url}/blogs/comment/${id}`)
+      .then((res) => {
+        // console.log(res.data.comments);
+        setComments(res.data.comments);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const deleteComment = (commentId) => {
+    // console.log(commentId);
+    // console.log(sessionStorage.getItem('token'));
+    axios
+      .delete(`${url}/blogs/comment/${id}`, commentId, {
+        headers: {
+          authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        // console.log(res.data.message);
+        toast.success(res.data.message);
+      })
+      .catch((error) => {
+        // console.log(error);
+        toast.error(error.response.data.message);
+      });
+  };
+
   return (
-    <Container className='mt-5' style={{width:"fit-content", backgroundColor: '#f8f9fa', padding: '2rem' }}>
+    <Container
+      className="mt-5"
+      style={{
+        width: "fit-content",
+        backgroundColor: "#f8f9fa",
+        padding: "2rem",
+      }}
+    >
       <Row>
         <Col>
           <h1>{card.title}</h1>
           <p>{card.description}</p>
           <p>{card.content}</p>
-          <p>Likes:{" "}{card.likes.length}</p>
+          <p>Likes: {card.likes.length}</p>
         </Col>
       </Row>
       <Row>
         <Col>
           <Form>
-            <Form.Group controlId="comment" style={{width:"100%"}}>
+            <Form.Group controlId="comment" style={{ width: "100%" }}>
               <Form.Label>Add a comment:</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={2}
                 value={""}
-                placeholder='Add a Comment'
+                placeholder="Add a Comment"
                 // onChange={(event) => setCommentText(event.target.value)}
               />
             </Form.Group>
-            <Button variant="primary" type="submit" className='mt-5'>
+            <Button variant="primary" type="submit" className="mt-5">
               Submit
             </Button>
           </Form>
         </Col>
       </Row>
-      {/* {comments.length > 0 && (
+      {/* {console.log(comments)} */}
+      {comments.length > 0 && (
         <Row>
           <Col>
-            <h2>Comments:</h2>
+            <h2 className="mt-3">Comments:</h2>
             {comments.map((comment, index) => (
-              <p key={index}>{comment}</p>
+              <div style={{ border: "1px solid black" }} className="mt-1">
+                <h6 style={{ margin: 0 }}>{comment.name + ":"}</h6>
+                <p style={{ margin: 0 }} key={index}>
+                  {comment.comment}
+                </p>
+                {sessionStorage.getItem("userId") === comment.userId && (
+                  <AiFillDelete
+                    onClick={() => {
+                      deleteComment(comment._id);
+                    }}
+                  />
+                )}
+              </div>
             ))}
           </Col>
         </Row>
-      )} */}
+      )}
     </Container>
-  )
+  );
 }
 
-export default PostPage
+export default PostPage;
