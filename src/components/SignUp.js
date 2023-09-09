@@ -16,11 +16,12 @@ export default function SignUp() {
   const handleSubmit = async () => {
     try {
       const status = await axios.post(`${url}/users/signup`, userSignUp);
-      console.log(status);
+      // console.log(status);
       toast.success(status.data.message);
       Navigate("/login");
     } catch (error) {
-      console.log(error.response);
+      // console.log(error);
+      // console.log(error.response);
       toast.error(error.response.data.message);
     }
   };

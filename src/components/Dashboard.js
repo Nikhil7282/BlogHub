@@ -39,7 +39,7 @@ function Dashboard() {
         await axios
           .post(`${url}/blogs/likePost/${id}`, {
             headers: {
-              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+              authorization: `Bearer ${sessionStorage.getItem("token")}`,
             },
           })
           .then((res) => {
@@ -50,7 +50,7 @@ function Dashboard() {
       } else {
         await axios.post(`${url}/blogs/unLikePost/${id}`, {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         });
         post.likes.splice(index, 1);

@@ -7,13 +7,22 @@ import { AiFillDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 function PostPage() {
+  const [render, rerender] = useState(false);
+
+  const [userComment, setUserComment] = useState({
+    name: `${sessionStorage.getItem("username")}`,
+    comment: "",
+    userId: `${sessionStorage.getItem("userId")}`,
+  });
   const [comments, setComments] = useState([]);
+
   const location = useLocation();
   const { card } = location.state;
   // console.log(card);
   const { id } = useParams();
   // console.log(id)
   useEffect(() => {
+    // console.log("rerender")
     axios
       .get(`${url}/blogs/comment/${id}`)
       .then((res) => {
@@ -23,26 +32,52 @@ function PostPage() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [render]);
+
+  const addComment = async () => {
+    // console.log(userComment);
+    axios
+      .post(`${url}/blogs/comment/${id}`, userComment)
+      .then((res) => {
+        // console.log(res.data.message);
+        rerender(!render);
+        toast.success(res.data.message);
+      })
+      .catch((error) => {
+        // console.log(error);
+        toast.error(error.response.data.message)
+      });
+  };
 
   const deleteComment = (commentId) => {
-    // console.log(commentId);
-    // console.log(sessionStorage.getItem('token'));
     axios
-      .delete(`${url}/blogs/comment/${id}`, commentId, {
-        headers: {
-          authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-      })
+      .delete(
+        `${url}/blogs/comment/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        data:{
+          commentId:commentId
+        }
+        })
       .then((res) => {
         // console.log(res.data.message);
         toast.success(res.data.message);
+        rerender(!render)
       })
       .catch((error) => {
         // console.log(error);
         toast.error(error.response.data.message);
       });
+    // const log=(config)=>{
+    //   console.log(config.headers);
+    //   console.log('Token:',config.headers.Authorization);
+    //   console.log('Body:',config.data);
+    //   return config
+    // }
+    // axios.interceptors.request.use(log)
   };
 
   return (
@@ -70,12 +105,17 @@ function PostPage() {
               <Form.Control
                 as="textarea"
                 rows={2}
-                value={""}
+                value={userComment.comment}
                 placeholder="Add a Comment"
-                // onChange={(event) => setCommentText(event.target.value)}
+                onChange={(event) =>
+                  setUserComment({
+                    ...userComment,
+                    comment: event.target.value,
+                  })
+                }
               />
             </Form.Group>
-            <Button variant="primary" type="submit" className="mt-5">
+            <Button variant="primary" className="mt-3" onClick={addComment}>
               Submit
             </Button>
           </Form>
