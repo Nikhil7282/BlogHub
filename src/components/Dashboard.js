@@ -27,7 +27,7 @@ function Dashboard() {
   //64916d748804398d7414e228
   const handleLike = async (id, userId) => {
     // e.preventDefault()
-    // console.log(id);
+    // console.log(userId);
     try {
       const post = await blogData.find((post) => post._id === id);
       // console.log(post)
@@ -44,9 +44,16 @@ function Dashboard() {
           })
           .then((res) => {
             if (res) {
+              // console.log(post.likes);
+              // console.log(userId);
               post.likes.push(userId);
+              toast.success("Liked")
             }
-          });
+          })
+          .catch((error)=>{
+            // console.log(error);
+            toast.error(error.response.data.message)
+          })
       } else {
         await axios.post(`${url}/blogs/unLikePost/${id}`, {
           headers: {
@@ -54,6 +61,7 @@ function Dashboard() {
           },
         });
         post.likes.splice(index, 1);
+        toast.error("Disliked")
       }
       setBlogData([...blogData]);
     } catch (error) {
