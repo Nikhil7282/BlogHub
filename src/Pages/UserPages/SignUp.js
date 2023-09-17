@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { url } from "../App";
+import { url } from "../../App";
 import axios from "axios";
 import { toast } from "react-toastify";
 

@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import axios from "axios";
-import { url } from "../App";
+import { url } from "../../App";
 import { AiFillDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
+import { commentReducer, commentState } from "../../components/PostPage/State";
 
 function PostPage() {
   const [render, rerender] = useState(false);
+  const [state,dispatch]=useReducer(commentReducer,commentState)
 
   const [userComment, setUserComment] = useState({
     name: `${sessionStorage.getItem("username")}`,
     comment: "",
     userId: `${sessionStorage.getItem("userId")}`,
   });
-  const [comments, setComments] = useState([]);
+  // const [comments, setComments] = useState([]);
 
   const location = useLocation();
   const { card } = location.state;
@@ -23,13 +25,16 @@ function PostPage() {
   // console.log(id)
   useEffect(() => {
     // console.log("rerender")
+    dispatch({type:"FetchingComments"})
     axios
       .get(`${url}/blogs/comment/${id}`)
       .then((res) => {
+        dispatch({type:"FetchCommentSuccess",payload:res.data.comments})
         // console.log(res.data.comments);
-        setComments(res.data.comments);
+        // setComments(res.data.comments);
       })
       .catch((error) => {
+        dispatch({type:"FetchCommentError",payload:error})
         console.log(error);
       });
   }, [render]);
@@ -40,6 +45,7 @@ function PostPage() {
       .post(`${url}/blogs/comment/${id}`, userComment)
       .then((res) => {
         // console.log(res.data.message);
+        setUserComment({...userComment,comment:""})
         rerender(!render);
         toast.success(res.data.message);
       })
@@ -79,7 +85,11 @@ function PostPage() {
     // }
     // axios.interceptors.request.use(log)
   };
-
+  if(state.loading===true){
+    return (
+      <h1>Loading Comments...</h1>
+    )
+  }
   return (
     <Container
       className="mt-5"
@@ -122,11 +132,11 @@ function PostPage() {
         </Col>
       </Row>
       {/* {console.log(comments)} */}
-      {comments.length > 0 && (
+      {  state.data.length > 0 && (
         <Row>
           <Col>
             <h2 className="mt-3">Comments:</h2>
-            {comments.map((comment, index) => (
+            {state.data.map((comment, index) => (
               <div style={{ border: "1px solid black" }} className="mt-1">
                 <h6 style={{ margin: 0 }}>{comment.name + ":"}</h6>
                 <p style={{ margin: 0 }} key={index}>

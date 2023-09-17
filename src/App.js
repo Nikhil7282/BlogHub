@@ -1,16 +1,17 @@
 import './App.css';
-import Login from './components/Login';
+import Login from './Pages/UserPages/Login';
 import {Route,Routes,Navigate} from 'react-router-dom'
-import SignUp from './components/SignUp';
+import SignUp from './Pages/UserPages/SignUp';
 import Home from './components/Home';
-import Dashboard from './components/Dashboard';
-import AddPost from './components/AddPost'
-import UserPost from './components/UserPost'
+import AddPost from './Pages/PostsPages/AddPost'
+import UserPost from './Pages/PostsPages/UserPost'
 import User from './components/User';
 import ProtectedRoute from "./authorization/ProtectedRoute"
 import PublicRoute from './authorization/PublicRoute';
-import EditPost from './components/EditPost';
-import PostPage from './components/PostPage';
+import EditPost from './Pages/PostsPages/EditPost';
+import Dashboard from './components/Dashboard/Dashboard';
+import PostPage from './Pages/PostsPages/PostPage';
+
 
 export const url="https://blohhub.onrender.com"
 // export const url="http://localhost:8000"
