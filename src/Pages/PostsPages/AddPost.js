@@ -1,28 +1,35 @@
-import React, {useState } from 'react'
+import React, { useState } from "react";
 import { Form, Button, Container} from "react-bootstrap";
-import { useNavigate,useLocation} from "react-router-dom";
 import axios from "axios";
+import { url } from "../../App";
 import { toast } from "react-toastify";
-import { url } from '../App';
-function EditPost() {
+import {useNavigate} from "react-router-dom"
+function AddPost() {
+  const Navigate=useNavigate()
+  const [userBlog, setUserBlog] = useState({
+    title: "",
+    description: "",
+    content: "",
+  });
 
-    const location=useLocation()
-    const Navigate=useNavigate()
-    const blog=location.state
-    const [userBlog,setUserBlog]=useState(blog)
-
-    const handleSubmit = () => {
-        axios.put(`${url}/blogs/updatePost/${userBlog._id}`,{title:userBlog.title,description:userBlog.description,content:userBlog.content})
-        .then((res)=>{
-            toast.success(res.data.message)
-            Navigate('/user/dashboard')
-            // console.log(res);
-        })
-        .catch((error)=>{
-            toast.error(error.response.data.message)
-            console.log(error);
-        })
-      };
+  const handleSubmit = () => {
+    axios.post(`${url}/blogs`,userBlog,{
+      headers:{
+        Authorization:`Bearer ${sessionStorage.getItem("token")}`
+      }
+    })
+    .then((res)=>{
+      console.log(res.data)
+      toast.success(res.data.message)
+      Navigate('/user/dashboard')
+    })
+    .catch((error)=>{
+      toast.error(error.response.data.message)
+      console.log(error)
+    })
+    // console.log(userBlog);
+    // Your code to handle form submission
+  };
 
   return (
     <Container
@@ -37,8 +44,7 @@ function EditPost() {
         backgroundColor:"lightgray"
       }}
     >
-        {/* {console.log(userBlog._id)} */}
-      <h1 className="mb-5">Edit Blog</h1>
+      <h1 className="mb-5">Post New Blog</h1>
       <Form style={{ width: "100%", maxWidth: "400px",marginBottom:"55px"}}>
         <Form.Group controlId="name">
           <Form.Label>Title</Form.Label>
@@ -74,12 +80,12 @@ function EditPost() {
             }}
           />
         </Form.Group>
-        <Button className="mt-4" variant="primary" onClick={()=>{handleSubmit()}}>
-          Edit Blog
+        <Button className="mt-4" variant="primary" onClick={handleSubmit}>
+          Post Blog
         </Button>
       </Form>
     </Container>
-  )
+  );
 }
 
-export default EditPost
+export default AddPost;

@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useReducer } from "react";
 import { Container, Card } from "react-bootstrap";
-import { url } from "../App";
+import { url } from "../../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { AiFillLike } from "react-icons/ai";
 
+import {initialState,reducer} from "./State.js"
+
 function Dashboard() {
   const Navigate = useNavigate();
-  const [blogData, setBlogData] = useState([]);
+  const [state,dispatch]=useReducer(reducer,initialState)
+  // const [blogData, setBlogData] = useState([]);
 
   const logout = () => {
     sessionStorage.clear();
@@ -23,16 +26,12 @@ function Dashboard() {
     }
   }, []);
 
-  //Likes
-  //64916d748804398d7414e228
   const handleLike = async (id, userId) => {
-    // e.preventDefault()
-    // console.log(userId);
     try {
-      const post = await blogData.find((post) => post._id === id);
-      // console.log(post)
+      const post = await state.data.find((post) => post._id === id);
+      console.log(post)
       const index = await post.likes.findIndex((user) => user === userId);
-      // console.log(index)
+      console.log(index)
       // console.log(id)
       // console.log(userId);
       if (index === -1) {
@@ -51,37 +50,51 @@ function Dashboard() {
             }
           })
           .catch((error)=>{
-            // console.log(error);
+            console.log(error);
             toast.error(error.response.data.message)
           })
-      } else {
-        await axios.post(`${url}/blogs/unLikePost/${id}`, {
-          headers: {
-            authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        });
-        post.likes.splice(index, 1);
-        toast.error("Disliked")
-      }
-      setBlogData([...blogData]);
-    } catch (error) {
+      }}
+      catch (error) {
       console.error(error);
     }
   };
 
-  const fetchData = async () => {
+  const handleDisLike=async(id,userId)=>{
+    const post = await state.data.find((post) => post._id === id);
+    const index = await post.likes.findIndex((user) => user === userId);
+
     try {
+      await axios.post(`${url}/blogs/unLikePost/${id}`, {
+        headers: {
+          authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      });
+      post.likes.splice(index, 1);
+      toast.error("Disliked")
+
+      // setBlogData([...blogData]);
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+  const fetchData = useCallback(async () => {
+    try {
+      dispatch({type:"Fetching"})
       const res = await axios.get(`${url}/blogs`);
-      setBlogData(res.data);
+      dispatch({type:"Fetch_Success",payload:res.data})
+      // setBlogData(res.data);
       // console.log(res.data)
     } catch (error) {
+      dispatch({type:"Fetch_Error"})
       if (error.response.status === 401 || error.response.status === 400) {
         logout();
         toast.error(error.response.data.message);
       }
       // console.log(error)
     }
-  };
+  },[state.data])
 
   const getRandomColor = () => {
     const colors = [
@@ -97,11 +110,14 @@ function Dashboard() {
     return colors[randomIndex];
   };
 
+  if(state.loading===true){
+    return (<h1>Loading...</h1>)
+  }
   return (
     <div>
       <Container className="text-center mt-5">
         <div className="d-flex flex-wrap justify-content-center mt-5">
-          {blogData.map((card, index) => (
+          {state.data.map((card, index) => (
             <Card
               bg={getRandomColor().toLowerCase()}
               key={index}
@@ -133,7 +149,7 @@ function Dashboard() {
                     ) ? (
                       <AiFillLike
                         onClick={() => {
-                          handleLike(
+                          handleDisLike(
                             card._id,
                             sessionStorage.getItem("userId")
                           );

@@ -1,33 +1,67 @@
-import React,{useState,useEffect}from "react";
+import React,{useState,useEffect, useCallback, useReducer}from "react";
 import { Container, Navbar, Nav, Card } from "react-bootstrap";
 // import {useNavigate} from 'react-router-dom'
 import { url } from "../App";
 import axios from 'axios'
 // import { toast } from "react-toastify";
 import { HiCubeTransparent } from "react-icons/hi";
+
+const initialState={
+  loading:false,
+  data:[],
+  error:null
+}
+
+const reducer=(state,action)=>{
+  if(action.type==="Fetching"){
+    return {...state,loading:true}
+  }
+  else if(action.type==="Fetch_Success"){
+    return {...state,loading:false,data:action.payload}
+  }
+  else if(action.type==="Fetch_Error"){
+    return {...state,loading:false,error:action.payload}
+  }
+  else{
+    return state
+  }
+}
+
 function Home(){
+  const [state,dispatch]=useReducer(reducer,initialState)
   // const navigate=useNavigate()
-  const [blogData,setBlogData]=useState([])
+  // const [blogData,setBlogData]=useState([])
 
   useEffect(()=>{
     fetchData()
   },[])
 
-  const fetchData= async()=>{
+  const fetchData = useCallback(async()=>{
     try {
+      dispatch({type:"Fetching"})
       const res=await axios.get(`${url}/blogs`)
-      setBlogData(res.data)
-      console.log(res.data)
+      dispatch({type:"Fetch_Success",payload:res.data})
+      // setBlogData(res.data)
+      // console.log(res.data)
     } catch (error) {
+      dispatch({type:"Fetch_Error",payload:error})
       console.log(error)
     }
-  }
+  })
 
   const getRandomColor = () => {
     const colors = ['Primary','Secondary','Success','Danger','Warning','Info','Dark'];
     const randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
   };
+
+  if(state.loading===true){
+    return(
+      <div>
+          <h1>Loading...</h1>
+      </div>
+    )
+  }
   return (
     <div
       style={{
@@ -54,7 +88,7 @@ function Home(){
         <h5>Register to create your first blog.</h5>
         {/* <Button variant="primary">Learn More</Button> */}
         <div className="d-flex flex-wrap justify-content-center mt-5">
-          {blogData.map((card, index) => (
+          {state.data.map((card, index) => (
             <Card 
             bg={getRandomColor().toLowerCase()} 
             key={index} 
