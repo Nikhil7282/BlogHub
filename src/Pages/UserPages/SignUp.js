@@ -15,7 +15,7 @@ export default function SignUp() {
   const Navigate = useNavigate();
   const handleSubmit = async () => {
     try {
-      const status = await axios.post(`${url}/users/signup`, userSignUp);
+      const status = await axios.post(`/users/signup`, userSignUp);
       // console.log(status);
       toast.success(status.data.message);
       Navigate("/login");

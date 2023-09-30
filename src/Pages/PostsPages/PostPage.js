@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import axios from "axios";
-import { url } from "../../App";
+// import { url } from "../../App";
 import { AiFillDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { commentReducer, commentState } from "../../components/PostPage/State";
@@ -27,7 +27,7 @@ function PostPage() {
     // console.log("rerender")
     dispatch({type:"FetchingComments"})
     axios
-      .get(`${url}/blogs/comment/${id}`)
+      .get(`/blogs/comment/${id}`)
       .then((res) => {
         dispatch({type:"FetchCommentSuccess",payload:res.data.comments})
         // console.log(res.data.comments);
@@ -42,7 +42,7 @@ function PostPage() {
   const addComment = async () => {
     // console.log(userComment);
     axios
-      .post(`${url}/blogs/comment/${id}`, userComment)
+      .post(`/blogs/comment/${id}`,userComment)
       .then((res) => {
         // console.log(res.data.message);
         setUserComment({...userComment,comment:""})
@@ -60,10 +60,10 @@ function PostPage() {
       .delete(
         `${url}/blogs/comment/${id}`,
         {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
+          // headers: {
+          //   Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          //   "Content-Type": "application/json",
+          // },
         data:{
           commentId:commentId
         }

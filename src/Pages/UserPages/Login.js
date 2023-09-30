@@ -11,7 +11,7 @@ export default function Login() {
   const Navigate=useNavigate()
   const handleLogin=async()=>{
    try {
-    await axios.post(`${url}/users/login`,UserDetails)
+    await axios.post(`/users/login`,UserDetails)
     // console.log(status)
     .then((res)=>{
       toast.success(res.data.message)

@@ -1,4 +1,5 @@
 import './App.css';
+import './axios/global'
 import Login from './Pages/UserPages/Login';
 import {Route,Routes,Navigate} from 'react-router-dom'
 import SignUp from './Pages/UserPages/SignUp';
@@ -9,7 +10,7 @@ import User from './components/User';
 import ProtectedRoute from "./authorization/ProtectedRoute"
 import PublicRoute from './authorization/PublicRoute';
 import EditPost from './Pages/PostsPages/EditPost';
-import Dashboard from './components/Dashboard/Dashboard';
+import Dashboard from './components/Dashboard';
 import PostPage from './Pages/PostsPages/PostPage';
 
 

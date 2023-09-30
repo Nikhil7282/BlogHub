@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { url } from "../../App";
+// import { url } from "../../App";
 import { Container, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -11,25 +11,29 @@ function UserPost() {
   useEffect(() => {
     async function fetchData() {
       await axios
-        .get(`${url}/blogs/userpost`, {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        })
+        .get(`/blogs/userpost` 
+        // {
+        //   headers: {
+        //     Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        //   },
+        // }
+        )
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           setUserPost(res.data);
         });
     }
     fetchData();
   }, []);
 
-  const deletePost=async(id,index)=>{
-    await axios.delete(`${url}/blogs/deletePost/${id}`,{
-      headers:{
-        Authorization:`Bearer ${sessionStorage.getItem("token")}`
-      }
-    })
+  const deletePost=async(id)=>{
+    await axios.delete(`/blogs/deletePost/${id}`,
+    // {
+    //   headers:{
+    //     Authorization:`Bearer ${sessionStorage.getItem("token")}`
+    //   }
+    // }
+    )
     .then((res)=>{
       toast.success(res.data.message)
       setUserPost(userPost.filter((post)=>{return post._id !== id}))

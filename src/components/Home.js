@@ -1,31 +1,32 @@
 import React,{useState,useEffect, useCallback, useReducer}from "react";
 import { Container, Navbar, Nav, Card } from "react-bootstrap";
 // import {useNavigate} from 'react-router-dom'
-import { url } from "../App";
+// import { url } from "../App";
 import axios from 'axios'
 // import { toast } from "react-toastify";
 import { HiCubeTransparent } from "react-icons/hi";
+import {initialState,reducer} from "./State.js"
 
-const initialState={
-  loading:false,
-  data:[],
-  error:null
-}
+// const initialState={
+//   loading:false,
+//   data:[],
+//   error:null
+// }
 
-const reducer=(state,action)=>{
-  if(action.type==="Fetching"){
-    return {...state,loading:true}
-  }
-  else if(action.type==="Fetch_Success"){
-    return {...state,loading:false,data:action.payload}
-  }
-  else if(action.type==="Fetch_Error"){
-    return {...state,loading:false,error:action.payload}
-  }
-  else{
-    return state
-  }
-}
+// const reducer=(state,action)=>{
+//   if(action.type==="Fetching"){
+//     return {...state,loading:true}
+//   }
+//   else if(action.type==="Fetch_Success"){
+//     return {...state,loading:false,data:action.payload}
+//   }
+//   else if(action.type==="Fetch_Error"){
+//     return {...state,loading:false,error:action.payload}
+//   }
+//   else{
+//     return state
+//   }
+// }
 
 function Home(){
   const [state,dispatch]=useReducer(reducer,initialState)
@@ -39,7 +40,8 @@ function Home(){
   const fetchData = useCallback(async()=>{
     try {
       dispatch({type:"Fetching"})
-      const res=await axios.get(`${url}/blogs`)
+      // const res=await axios.get(`${url}/blogs`)
+      const res=await axios.get(`/blogs`)
       dispatch({type:"Fetch_Success",payload:res.data})
       // setBlogData(res.data)
       // console.log(res.data)

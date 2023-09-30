@@ -13,13 +13,15 @@ function AddPost() {
   });
 
   const handleSubmit = () => {
-    axios.post(`${url}/blogs`,userBlog,{
-      headers:{
-        Authorization:`Bearer ${sessionStorage.getItem("token")}`
-      }
-    })
+    axios.post(`/blogs`,userBlog
+    // {
+    //   headers:{
+    //     Authorization:`Bearer ${sessionStorage.getItem("token")}`
+    //   }
+    // }
+    )
     .then((res)=>{
-      console.log(res.data)
+      // console.log(res.data)
       toast.success(res.data.message)
       Navigate('/user/dashboard')
     })
