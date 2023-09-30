@@ -14,8 +14,8 @@ import Dashboard from './components/Dashboard';
 import PostPage from './Pages/PostsPages/PostPage';
 
 
-// export const url="https://blohhub.onrender.com"
-export const url="http://localhost:8000"
+export const url="https://blohhub.onrender.com"
+// export const url="http://localhost:8000"
 
 function App() {
   return (
