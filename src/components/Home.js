@@ -6,6 +6,7 @@ import axios from 'axios'
 // import { toast } from "react-toastify";
 import { HiCubeTransparent } from "react-icons/hi";
 import {initialState,reducer} from "./State.js"
+import { fetchBlogs } from "../axios/customeInstence.js";
 
 // const initialState={
 //   loading:false,
@@ -41,7 +42,9 @@ function Home(){
     try {
       dispatch({type:"Fetching"})
       // const res=await axios.get(`${url}/blogs`)
-      const res=await axios.get(`/blogs`)
+      // const res=await axios.get(`/blogs`)
+      const  res=await fetchBlogs.request()
+      // console.log(res);
       dispatch({type:"Fetch_Success",payload:res.data})
       // setBlogData(res.data)
       // console.log(res.data)

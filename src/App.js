@@ -1,5 +1,4 @@
 import './App.css';
-import './axios/global'
 import Login from './Pages/UserPages/Login';
 import {Route,Routes,Navigate} from 'react-router-dom'
 import SignUp from './Pages/UserPages/SignUp';
@@ -14,6 +13,7 @@ import Dashboard from './components/Dashboard';
 import PostPage from './Pages/PostsPages/PostPage';
 
 function App() {
+  
   return (
     <div className="App">
       <Routes>

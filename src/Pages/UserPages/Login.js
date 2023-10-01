@@ -5,6 +5,7 @@ import { url } from "../../App";
 import axios from 'axios'
 // import jwt from 'jsonwebtoken'
 import { toast } from "react-toastify";
+import { loginUser } from "../../axios/customeInstence";
 
 export default function Login() {
   const [UserDetails,setUserDetails]=useState({username:"",password:""})
@@ -12,6 +13,7 @@ export default function Login() {
   const handleLogin=async()=>{
    try {
     await axios.post(`/users/login`,UserDetails)
+    // await loginUser.request('/',UserDetails)
     // console.log(status)
     .then((res)=>{
       toast.success(res.data.message)

@@ -12,7 +12,7 @@ function EditPost() {
     const [userBlog,setUserBlog]=useState(blog)
 
     const handleSubmit = () => {
-        axios.put(`${url}/blogs/updatePost/${userBlog._id}`,{title:userBlog.title,description:userBlog.description,content:userBlog.content})
+        axios.put(`/blogs/updatePost/${userBlog._id}`,{title:userBlog.title,description:userBlog.description,content:userBlog.content})
         .then((res)=>{
             toast.success(res.data.message)
             Navigate('/user/dashboard')

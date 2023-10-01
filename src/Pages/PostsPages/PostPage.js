@@ -6,6 +6,7 @@ import axios from "axios";
 import { AiFillDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { commentReducer, commentState } from "../../components/PostPage/State";
+import {authFetchDel } from "../../axios/customeInstence";
 
 function PostPage() {
   const [render, rerender] = useState(false);
@@ -56,20 +57,24 @@ function PostPage() {
   };
 
   const deleteComment = (commentId) => {
-    axios
-      .delete(
-        `${url}/blogs/comment/${id}`,
-        {
-          // headers: {
-          //   Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          //   "Content-Type": "application/json",
-          // },
-        data:{
-          commentId:commentId
-        }
-        })
+    // axios
+    //   .delete(
+    //     `/blogs/comment/${id}`,
+    //     {
+    //       // headers: {
+    //       //   Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    //       //   "Content-Type": "application/json",
+    //       // },
+    //     data:{
+    //       commentId:commentId
+    //     }
+    //     })
+        authFetchDel(`/blogs/comment/${id}`,{data:{commentId:commentId}})
       .then((res) => {
         // console.log(res.data.message);
+        // state.data.filter((comment)=>{
+        //     return comment._id !== commentId
+        // })
         toast.success(res.data.message);
         rerender(!render)
       })

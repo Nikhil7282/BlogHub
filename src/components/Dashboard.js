@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { AiFillLike } from "react-icons/ai";
 
 import { initialState, reducer } from "./State.js";
+import { authFetch,fetchBlogs } from "../axios/customeInstence.js";
 
 function Dashboard() {
   // const storage=sessionStorage.getItem('userId')
@@ -37,14 +38,14 @@ function Dashboard() {
       // console.log(id)
       // console.log(userId);
       if (index === -1) {
-        await axios
-          .post(`/blogs/likePost/${id}`
-          // {
-          //   headers: {
-          //     authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          //   },
-          // }
-          )
+        // await axios.post(`/blogs/likePost/${id}`
+        //   // {
+        //   //   headers: {
+        //   //     authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        //   //   },
+        //   // }
+        //   )
+        await authFetch(`/blogs/likePost/${id}`)
           .then((res) => {
             if (res) {
               // console.log(post.likes);
@@ -69,14 +70,15 @@ function Dashboard() {
     const index = await post.likes.findIndex((user) => user === userId);
 
     try {
-      await axios.post(`/blogs/unLikePost/${id}`,
-      // {
-      //   headers: {
-      //     Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-      //     "Content-Type": "application/json",
-      //   }
-      // }
-      );
+      // await axios.post(`/blogs/unLikePost/${id}`,
+      // // {
+      // //   headers: {
+      // //     Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      // //     "Content-Type": "application/json",
+      // //   }
+      // // }
+      // )
+      await authFetch(`/blogs/unLikePost/${id}`)
       post.likes.splice(index, 1);
       toast.error("Disliked");
       setReRender(!reRender)
@@ -89,7 +91,8 @@ function Dashboard() {
   const fetchData = useCallback(async () => {
     try {
       dispatch({ type: "Fetching" });
-      const res = await axios.get(`/blogs`);
+      // const res = await axios.get(`/blogs`);
+      const res=await fetchBlogs()
       dispatch({ type: "Fetch_Success", payload: res.data });
       // setBlogData(res.data);
       // console.log(res.data)
