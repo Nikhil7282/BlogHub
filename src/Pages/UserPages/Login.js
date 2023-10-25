@@ -1,18 +1,19 @@
+// import jwt from 'jsonwebtoken'
+// import { loginUser } from "../../axios/customeInstence";
 import React, { useState } from "react";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import {useNavigate} from 'react-router-dom'
-import { url } from "../../App";
 import axios from 'axios'
-// import jwt from 'jsonwebtoken'
 import { toast } from "react-toastify";
-import { loginUser } from "../../axios/customeInstence";
+import { url } from "../../App";
 
 export default function Login() {
   const [UserDetails,setUserDetails]=useState({username:"",password:""})
   const Navigate=useNavigate()
   const handleLogin=async()=>{
    try {
-    await axios.post(`/users/login`,UserDetails)
+    await axios.post(`${url}/users/login`,UserDetails)
+    // await axios.post(`/users/login`,UserDetails)
     // await loginUser.request('/',UserDetails)
     // console.log(status)
     .then((res)=>{

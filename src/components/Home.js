@@ -1,12 +1,13 @@
-import React,{useState,useEffect, useCallback, useReducer}from "react";
-import { Container, Navbar, Nav, Card } from "react-bootstrap";
 // import {useNavigate} from 'react-router-dom'
 // import { url } from "../App";
-import axios from 'axios'
+// import { fetchBlogs } from "../axios/customeInstence.js";
 // import { toast } from "react-toastify";
+import React,{useEffect, useCallback, useReducer} from "react";
+import { Container, Navbar, Nav, Card } from "react-bootstrap";
+import axios from 'axios'
 import { HiCubeTransparent } from "react-icons/hi";
 import {initialState,reducer} from "./State.js"
-import { fetchBlogs } from "../axios/customeInstence.js";
+import { url } from "../App.js";
 
 // const initialState={
 //   loading:false,
@@ -41,9 +42,9 @@ function Home(){
   const fetchData = useCallback(async()=>{
     try {
       dispatch({type:"Fetching"})
-      // const res=await axios.get(`${url}/blogs`)
+      const res=await axios.get(`${url}/blogs`)
       // const res=await axios.get(`/blogs`)
-      const  res=await fetchBlogs.request()
+      // const  res=await fetchBlogs.request()
       // console.log(res);
       dispatch({type:"Fetch_Success",payload:res.data})
       // setBlogData(res.data)
@@ -91,7 +92,6 @@ function Home(){
       <Container className="text-center mt-5">
         <h1>Welcome to BlogHub</h1>
         <h5>Register to create your first blog.</h5>
-        {/* <Button variant="primary">Learn More</Button> */}
         <div className="d-flex flex-wrap justify-content-center mt-5">
           {state.data.map((card, index) => (
             <Card 

@@ -3,7 +3,7 @@ import { Container, Navbar, Nav } from "react-bootstrap";
 import { HiCubeTransparent } from "react-icons/hi";
 import { Outlet, useNavigate } from "react-router-dom";
 
-function User() {
+function NavbarComponent() {
   const Navigate = useNavigate();
   const logout = () => {
     sessionStorage.clear();
@@ -40,7 +40,7 @@ function User() {
               >
                 My Post
               </Nav.Link>
-              <Nav.Link className="float-right"
+              <Nav.Link className="ms-auto float-right"
                 onClick={() => {
                   logout();
                 }}
@@ -57,4 +57,4 @@ function User() {
   );
 }
 
-export default User;
+export default NavbarComponent;
