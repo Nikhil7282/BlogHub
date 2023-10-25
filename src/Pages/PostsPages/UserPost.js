@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import { url } from "../../App";
+import { url } from "../../App";
 import { Container, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -11,12 +11,12 @@ function UserPost() {
   useEffect(() => {
     async function fetchData() {
       await axios
-        .get(`/blogs/userpost` 
-        // {
-        //   headers: {
-        //     Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-        //   },
-        // }
+        .get(`${url}/blogs/userpost`,
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        }
         )
         .then((res) => {
           // console.log(res.data);

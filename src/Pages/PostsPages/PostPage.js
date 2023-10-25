@@ -2,11 +2,11 @@ import React, { useEffect, useReducer, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import axios from "axios";
-// import { url } from "../../App";
+// import {authFetchDel } from "../../axios/customeInstence";
+import { url } from "../../App";
 import { AiFillDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
-import { commentReducer, commentState } from "../../components/PostPage/State";
-import {authFetchDel } from "../../axios/customeInstence";
+import { commentReducer, commentState } from "./State";
 
 function PostPage() {
   const [render, rerender] = useState(false);
@@ -28,7 +28,7 @@ function PostPage() {
     // console.log("rerender")
     dispatch({type:"FetchingComments"})
     axios
-      .get(`/blogs/comment/${id}`)
+      .get(`${url}/blogs/comment/${id}`)
       .then((res) => {
         dispatch({type:"FetchCommentSuccess",payload:res.data.comments})
         // console.log(res.data.comments);
@@ -43,7 +43,7 @@ function PostPage() {
   const addComment = async () => {
     // console.log(userComment);
     axios
-      .post(`/blogs/comment/${id}`,userComment)
+      .post(`${url}/blogs/comment/${id}`,userComment)
       .then((res) => {
         // console.log(res.data.message);
         setUserComment({...userComment,comment:""})
@@ -57,19 +57,19 @@ function PostPage() {
   };
 
   const deleteComment = (commentId) => {
-    // axios
-    //   .delete(
-    //     `/blogs/comment/${id}`,
-    //     {
-    //       // headers: {
-    //       //   Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-    //       //   "Content-Type": "application/json",
-    //       // },
-    //     data:{
-    //       commentId:commentId
-    //     }
-    //     })
-        authFetchDel(`/blogs/comment/${id}`,{data:{commentId:commentId}})
+    axios
+      .delete(
+        `/blogs/comment/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        data:{
+          commentId:commentId
+        }
+        })
+        // authFetchDel(`/blogs/comment/${id}`,{data:{commentId:commentId}})
       .then((res) => {
         // console.log(res.data.message);
         // state.data.filter((comment)=>{
