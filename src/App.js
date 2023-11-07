@@ -11,6 +11,7 @@ import PublicRoute from './authorization/PublicRoute';
 import EditPost from './Pages/PostsPages/EditPost';
 import Dashboard from './components/Dashboard';
 import PostPage from './Pages/PostsPages/PostPage';
+import SearchBar from './components/SearchBar';
 
 // export const url = 'http://localhost:8000'
 export const url="https://blohhub.onrender.com"
