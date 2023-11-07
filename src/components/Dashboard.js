@@ -1,32 +1,25 @@
 // import { authFetch,fetchBlogs } from "../axios/customeInstence.js";
 import { url } from "../App";
-import React, { useState, useEffect, useCallback, useReducer } from "react";
+import React, {useContext} from "react";
 import { Container, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { AiFillLike } from "react-icons/ai";
-import { initialState, reducer } from "./State.js";
+import { postContext } from "../context/globalContext.js";
 
 function Dashboard() {
   // const storage=sessionStorage.getItem('userId')
-  const [reRender,setReRender]=useState(false)
-  const Navigate = useNavigate();
   // const [blogData, setBlogData] = useState([]);
-  const [state, dispatch] = useReducer(reducer, initialState);
-
+  // const [state, dispatch] = useReducer(reducer, initialState);
+  // const [reRender,setReRender]=useState(false)
+  const {state,dispatch}=useContext(postContext)
+  const Navigate = useNavigate();
+  // console.log(state);
   const logout = () => {
     sessionStorage.clear();
     Navigate("/login");
   };
-
-  useEffect(() => {
-    if (sessionStorage.getItem("token")) {
-      fetchData();
-    } else {
-      logout();
-    }
-  }, [reRender]);
 
   const handleLike = async (id, userId) => {
     try {
@@ -49,9 +42,10 @@ function Dashboard() {
             if (res) {
               // console.log(post.likes);
               // console.log(userId);
-              post.likes.push(userId);
+              dispatch({type:"Like_Post",payload:{userId,postId:post._id}})
+              // post.likes.push(userId);
               toast.success("Liked");
-              setReRender(!reRender)
+              // setReRender(!reRender)
             }
           })
           .catch((error) => {
@@ -78,32 +72,15 @@ function Dashboard() {
       }
       )
       // await authFetch(`/blogs/unLikePost/${id}`)
-      post.likes.splice(index, 1);
+      dispatch({type:"DisLike_Post",payload:{index,postId:post._id}})
+      // post.likes.splice(index, 1);
       toast.error("Disliked");
-      setReRender(!reRender)
+      // setReRender(!reRender)
       // setBlogData([...blogData]);
     } catch (error) {
       console.log(error);
     }
   };
-
-  const fetchData = useCallback(async () => {
-    try {
-      dispatch({ type: "Fetching" });
-      const res = await axios.get(`${url}/blogs`);
-      // const res=await fetchBlogs()
-      dispatch({ type: "Fetch_Success", payload: res.data });
-      // setBlogData(res.data);
-      // console.log(res.data)
-    } catch (error) {
-      dispatch({ type: "Fetch_Error" });
-      if (error.response.status === 401 || error.response.status === 400) {
-        logout();
-        toast.error(error.response.data.message);
-      }
-      // console.log(error)
-    }
-  }, [state.data]);
 
   const getRandomColor = () => {
     const colors = [
@@ -163,13 +140,11 @@ function Dashboard() {
                         return userId === sessionStorage.getItem('userId')
                       }))} */}
                       {card.likes.some((userId) => {
-                        // console.log(userId);
+                        // console.log(userId == sessionStorage.getItem("userId"));
                         return userId == sessionStorage.getItem("userId");
                       }) ? (
-                        // <p>L</p>
                         <AiFillLike style={{color:"red"}} onClick={()=>{handleDisLike(card._id,sessionStorage.getItem('userId'))}}/>
                       ) : (
-                        // <p>DL</p>
                         <AiFillLike  onClick={()=>{handleLike(card._id,sessionStorage.getItem('userId'))}}/>
                       )}
                       <span style={{ marginLeft: "5px" }}>

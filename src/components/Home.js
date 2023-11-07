@@ -2,12 +2,10 @@
 // import { url } from "../App";
 // import { fetchBlogs } from "../axios/customeInstence.js";
 // import { toast } from "react-toastify";
-import React,{useEffect, useCallback, useReducer} from "react";
+import React,{useContext} from "react";
 import { Container, Navbar, Nav, Card } from "react-bootstrap";
-import axios from 'axios'
 import { HiCubeTransparent } from "react-icons/hi";
-import {initialState,reducer} from "./State.js"
-import { url } from "../App.js";
+import { postContext } from "../context/globalContext.js";
 
 // const initialState={
 //   loading:false,
@@ -31,30 +29,11 @@ import { url } from "../App.js";
 // }
 
 function Home(){
-  const [state,dispatch]=useReducer(reducer,initialState)
+  // const [state,dispatch]=useReducer(reducer,initialState)
   // const navigate=useNavigate()
   // const [blogData,setBlogData]=useState([])
-
-  useEffect(()=>{
-    fetchData()
-  },[])
-
-  const fetchData = useCallback(async()=>{
-    try {
-      dispatch({type:"Fetching"})
-      const res=await axios.get(`${url}/blogs`)
-      // const res=await axios.get(`/blogs`)
-      // const  res=await fetchBlogs.request()
-      // console.log(res);
-      dispatch({type:"Fetch_Success",payload:res.data})
-      // setBlogData(res.data)
-      // console.log(res.data)
-    } catch (error) {
-      dispatch({type:"Fetch_Error",payload:error})
-      console.log(error)
-    }
-  })
-
+  
+  const {state}=useContext(postContext)
   const getRandomColor = () => {
     const colors = ['Primary','Secondary','Success','Danger','Warning','Info','Dark'];
     const randomIndex = Math.floor(Math.random() * colors.length);
