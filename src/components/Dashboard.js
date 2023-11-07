@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { AiFillLike } from "react-icons/ai";
-import SearchBar from "./SearchBar";
 import { postContext } from "../context/globalContext.js";
 
 function Dashboard() {
@@ -102,7 +101,6 @@ function Dashboard() {
   }
   return (
     <div>
-      <SearchBar/>
       <Container className="text-center mt-5">
         <div className="d-flex flex-wrap justify-content-center mt-5">
           {state.data.length === 0 ? (
