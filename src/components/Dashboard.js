@@ -7,6 +7,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { AiFillLike } from "react-icons/ai";
 import { postContext } from "../context/globalContext.js";
+import NewNavbar from "./NewNavbar.js";
 
 function Dashboard() {
   // const storage=sessionStorage.getItem('userId')
@@ -101,6 +102,7 @@ function Dashboard() {
   }
   return (
     <div>
+      {/* <NewNavbar state="Dashboard"/> */}
       <Container className="text-center mt-5">
         <div className="d-flex flex-wrap justify-content-center mt-5">
           {state.data.length === 0 ? (
