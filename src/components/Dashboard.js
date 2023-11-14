@@ -102,7 +102,6 @@ function Dashboard() {
   }
   return (
     <div>
-      {/* <NewNavbar state="Dashboard"/> */}
       <Container className="text-center mt-5">
         <div className="d-flex flex-wrap justify-content-center mt-5">
           {state.data.length === 0 ? (
