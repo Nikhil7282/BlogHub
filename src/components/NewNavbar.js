@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import { HiCubeTransparent } from "react-icons/hi";
+import { IoReorderThree } from "react-icons/io5"
+import { IoSearch } from "react-icons/io5";
 import "../App.css";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 function NewNavbar({ state }) {
+  const navigate=useNavigate()
   const [showLinks, setShowLinks] = useState(false);
+  const logout=async()=>{
+    await sessionStorage.clear()
+    navigate('/login')
+  }
   return (
     <div>
       {state === "Home" ? (
         <div className="navbar">
-          <div className="leftSide">
+          <div className="home-leftSide">
             <div className="links">
               <a href="/">
                 <HiCubeTransparent className="icon" />
@@ -29,19 +36,19 @@ function NewNavbar({ state }) {
           <div className="navbar">
             <div className="leftSide">
               <div className="links" id={showLinks?"hidden":""}>
-                <a>
+                <a style={{display:showLinks?"none":""}}>
                   <HiCubeTransparent className="icon" />
                 </a>
                 <a href="/user/dashboard">BlogHub</a>
                 <a href="/user/addpost">Add Post</a>
                 <a href="/user/userpost">My Post</a>
-                <a>Logout</a>
+                <a onClick={logout}>Logout</a>
               </div>
-              <button onClick={()=>{setShowLinks(!showLinks)}}>open</button>
+              <button onClick={()=>{setShowLinks(!showLinks)}}><IoReorderThree/></button>
             </div>
             <div className="rightSide">
               <input type="text" placeholder="Search" />
-              <button>Search</button>
+              <button><IoSearch/></button>
             </div>
           </div>
           <Outlet />

@@ -68,7 +68,17 @@ span.population {
   align-items: center;
   flex: 50%;
 }
+.navbar .home-leftSide{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex: 50%;
+}
 .navbar .leftSide .links{
+  max-height: 80px;
+}
+
+.navbar .home-leftSide .links{
   max-height: 80px;
 }
 
@@ -78,9 +88,17 @@ span.population {
   margin-left: 20px;
 
 }
-
 .navbar .leftSide >#hidden{
   display: flex;
+}
+.navbar .home-leftSide .links a{
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  margin-left: 15px;
+}
+.navbar .home-leftSide .links a > .icon{
+  font-size: 40px;
 }
 
 .navbar .leftSide .links a{
@@ -88,6 +106,11 @@ span.population {
   color: white;
   font-size: 20px;
   margin-left: 15px;
+  transition: 0.5s all ease;
+}
+.navbar .leftSide .links a:hover{
+  cursor: pointer;
+  color: lightgray;
 }
 .navbar .leftSide .links a > .icon{
   font-size: 40px;
@@ -120,9 +143,11 @@ span.population {
   cursor: pointer;
 }
 .navbar .rightSide >button{
-    height: 32px;
-    width: 70px;
-    font-size: 16px;
+    height: fit-content;
+    width: fit-content;
+    font-size: 20px;
+    border-radius: 5px;
+    margin-left: 5px;
     border: none; 
 }
 
@@ -132,7 +157,7 @@ span.population {
   }
 }
 
-@media only screen and (max-width:750px) {
+@media only screen and (max-width:880px) {
   .navbar .leftSide .links a{
     font-size: 15px;
   }
@@ -141,6 +166,11 @@ span.population {
 @media only screen and (max-width:650px) {
   .navbar .leftSide >button{
     display: flex;
+    border: none;
+    padding: 5px;
+    font-size: 40px;
+    color: white;
+    background-color: black;
   }
   .navbar .leftSide .links{
     display: none;
@@ -150,9 +180,10 @@ span.population {
     left: 0px;
     top: 80px;
     height: 230px;
+    z-index: 1;
     max-height:230px;
     width: 100%;
-    background-color:#021E39;
+    background-color:black;
     display: flex;
     flex-direction: column;
     align-items: center;
