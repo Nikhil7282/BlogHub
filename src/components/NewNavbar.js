@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HiCubeTransparent } from "react-icons/hi";
 import { IoReorderThree } from "react-icons/io5"
 import { IoSearch } from "react-icons/io5";
@@ -8,6 +8,12 @@ import { Outlet, useNavigate } from "react-router-dom";
 function NewNavbar({ state }) {
   const navigate=useNavigate()
   const [showLinks, setShowLinks] = useState(false);
+  const [showSearch,setShowSearch]=useState(false)
+  useEffect(()=>{
+    if(window.location.pathname === "/user/dashboard"){
+      setShowSearch(true)
+    }
+  })
   const logout=async()=>{
     await sessionStorage.clear()
     navigate('/login')
@@ -46,7 +52,7 @@ function NewNavbar({ state }) {
               </div>
               <button onClick={()=>{setShowLinks(!showLinks)}}><IoReorderThree/></button>
             </div>
-            <div className="rightSide">
+            <div className="rightSide" style={{display:showSearch?"":"none"}}>
               <input type="text" placeholder="Search" />
               <button><IoSearch/></button>
             </div>
