@@ -7,6 +7,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { AiFillLike } from "react-icons/ai";
 import { postContext } from "../context/globalContext.js";
+import NewNavbar from "./NewNavbar.js";
 
 function Dashboard() {
   // const storage=sessionStorage.getItem('userId')

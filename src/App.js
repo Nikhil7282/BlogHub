@@ -11,6 +11,7 @@ import PublicRoute from './authorization/PublicRoute';
 import EditPost from './Pages/PostsPages/EditPost';
 import Dashboard from './components/Dashboard';
 import PostPage from './Pages/PostsPages/PostPage';
+import NewNavbar from './components/NewNavbar';
 
 // export const url = 'http://localhost:8000'
 export const url="https://blohhub.onrender.com"
@@ -38,7 +39,7 @@ function App() {
         {/* <Route path='/dashboard' element={<Dashboard/>}/> */}
         <Route path='/user' element={
           <ProtectedRoute>
-            <NavbarComponent/>
+            <NewNavbar state="Dashboard"/>
           </ProtectedRoute>
         }>
             <Route path='dashboard' element={

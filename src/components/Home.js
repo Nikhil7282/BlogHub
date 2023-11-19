@@ -4,8 +4,8 @@
 // import { toast } from "react-toastify";
 import React,{useContext} from "react";
 import { Container, Navbar, Nav, Card } from "react-bootstrap";
-import { HiCubeTransparent } from "react-icons/hi";
 import { postContext } from "../context/globalContext.js";
+import NewNavbar from "./NewNavbar.js";
 
 // const initialState={
 //   loading:false,
@@ -56,7 +56,7 @@ function Home(){
         minHeight: "100vh",
       }}
     >
-      <Navbar bg="dark" expand="lg" variant="dark">
+      {/* <Navbar bg="dark" expand="lg" variant="dark">
         <Container>
           <Navbar.Brand href="/"><HiCubeTransparent className="mb-1"/>{" "}BlogHub</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbar-nav" />
@@ -67,7 +67,8 @@ function Home(){
             </Nav>
           </Navbar.Collapse>
         </Container>
-      </Navbar>
+      </Navbar> */}
+      <NewNavbar state="Home"/>
       <Container className="text-center mt-5">
         <h1>Welcome to BlogHub</h1>
         <h5>Register to create your first blog.</h5>
