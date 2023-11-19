@@ -124,8 +124,8 @@ body{
 
 @media only screen and (max-width:650px) {
   .navbar .rightSide >input{
-    position: absolute;
-    margin-right: 40px; 
+    position: absolute; 
+    margin-right:40px;
   }
   .navbar .leftSide >button{
     display: flex;
