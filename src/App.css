@@ -88,7 +88,7 @@ body{
   margin-right: 25px;
 }
 
-.navbar .rightSide .searchBar >input{
+.navbar .rightSide >input{
   width: 220px;
   height: 30px;
   border: none;
@@ -97,10 +97,10 @@ body{
   padding-left: 15px;
   color: black;
 }
-.navbar .rightSide .searchBar>button:hover{
+.navbar .rightSide >button:hover{
   cursor: pointer;
 }
-.navbar .rightSide .searchBar>button{
+.navbar .rightSide >button{
     height: fit-content;
     width: fit-content;
     font-size: 20px;
@@ -123,8 +123,9 @@ body{
 }
 
 @media only screen and (max-width:650px) {
-  .navbar .rightSide .searchBar{
-    position: absolute; 
+  .navbar .rightSide >input{
+    position: absolute;
+    margin-right: 40px; 
   }
   .navbar .leftSide >button{
     display: flex;
