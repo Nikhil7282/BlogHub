@@ -4,6 +4,7 @@ import { IoReorderThree } from "react-icons/io5"
 import { IoSearch } from "react-icons/io5";
 import "../App.css";
 import { Outlet, useNavigate } from "react-router-dom";
+import SearchBar from "./Search/SearchBar";
 
 function NewNavbar({ state }) {
   const navigate=useNavigate()
@@ -53,8 +54,9 @@ function NewNavbar({ state }) {
               <button onClick={()=>{setShowLinks(!showLinks)}}><IoReorderThree/></button>
             </div>
             <div className="rightSide" style={{display:showSearch?"":"none"}}>
-              <input type="text" placeholder="Search" />
-              <button><IoSearch/></button>
+              <SearchBar/>
+              {/* <input type="text" placeholder="Search" />
+              <button><IoSearch/></button> */}
             </div>
           </div>
           <Outlet />
