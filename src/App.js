@@ -12,6 +12,9 @@ import EditPost from './Pages/PostsPages/EditPost';
 import Dashboard from './components/Dashboard';
 import PostPage from './Pages/PostsPages/PostPage';
 import NewNavbar from './components/NewNavbar';
+import SearchList from './components/Search/SearchList';
+import ForgotPassword from './components/ForgetPassword/ForgetPassword';
+import ResetPassword from './components/ForgetPassword/ResetPassword';
 
 // export const url = 'http://localhost:8000'
 export const url="https://blohhub.onrender.com"
@@ -34,6 +37,16 @@ function App() {
         <Route path='/register' element={
           <PublicRoute>
           <SignUp/>
+        </PublicRoute>
+        }/>
+        <Route path='/forgetPassword' element={
+          <PublicRoute>
+          <ForgotPassword/>
+        </PublicRoute>
+        }/>
+        <Route path='/resetPassword/:token' element={
+          <PublicRoute>
+          <ResetPassword/>
         </PublicRoute>
         }/>
         {/* <Route path='/dashboard' element={<Dashboard/>}/> */}

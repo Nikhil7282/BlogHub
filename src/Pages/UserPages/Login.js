@@ -63,7 +63,7 @@ export default function Login() {
                         controlId="formBasicCheckbox"
                       >
                         <p className="small">
-                          <a className="text-primary" href="#!">
+                          <a className="text-primary" href="/forgetPassword">
                             Forgot password?
                           </a>
                         </p>
