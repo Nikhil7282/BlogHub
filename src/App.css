@@ -3,12 +3,12 @@
   height: 100vh;
   text-align: center;
 }
-body{
+body {
   margin: 0;
   padding: 0;
 }
 
-.signupBtn{
+.signupBtn {
   border: none;
   background: none;
 }
@@ -20,75 +20,73 @@ body{
   display: flex;
 }
 
-.navbar .leftSide{
+.navbar .leftSide {
   display: flex;
   justify-content: left;
   align-items: center;
   flex: 50%;
 }
-.navbar .home-leftSide{
+.navbar .home-leftSide {
   display: flex;
   justify-content: left;
   align-items: center;
   flex: 50%;
 }
-.navbar .leftSide .links{
+.navbar .leftSide .links {
   max-height: 80px;
 }
 
-.navbar .home-leftSide .links{
+.navbar .home-leftSide .links {
   max-height: 80px;
 }
 
-
-.navbar .leftSide >button{
+.navbar .leftSide > button {
   display: none;
   margin-left: 20px;
-
 }
-.navbar .leftSide >#hidden{
+.navbar .leftSide > #hidden {
   display: flex;
 }
-.navbar .home-leftSide .links a{
+.navbar .home-leftSide .links a {
   text-decoration: none;
   color: white;
   font-size: 20px;
   margin-left: 15px;
 }
-.navbar .home-leftSide .links a > .icon{
+.navbar .home-leftSide .links a > .icon {
   font-size: 40px;
 }
 
-.navbar .leftSide .links a{
+.navbar .leftSide .links a {
   text-decoration: none;
   color: white;
   font-size: 20px;
   margin-left: 15px;
   transition: 0.5s all ease;
 }
-.navbar .leftSide .links a:hover{
+.navbar .leftSide .links a:hover {
   cursor: pointer;
   color: lightgray;
 }
-.navbar .leftSide .links a > .icon{
+.navbar .leftSide .links a > .icon {
   font-size: 40px;
 }
-.navbar .rightSide{
+.navbar .rightSide {
   flex: 50%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right:25px;
+  padding-right: 25px;
 }
 
-.navbar .rightSide .links a{
+.navbar .rightSide .links a {
   text-decoration: none;
   color: white;
   font-size: 20px;
   margin-right: 25px;
 }
 
-.navbar .rightSide .searchBar>input{
+.navbar .rightSide .searchBar > input {
   width: 220px;
   height: 30px;
   border: none;
@@ -97,19 +95,19 @@ body{
   padding-left: 15px;
   color: black;
 }
-.navbar .rightSide .searchBar>input:focus{
+.navbar .rightSide .searchBar > input:focus {
   outline: none;
 }
-.navbar .rightSide .searchBar>button:hover{
+.navbar .rightSide .searchBar > button:hover {
   cursor: pointer;
 }
-.navbar .rightSide .searchBar>button{
-    height: fit-content;
-    width: fit-content;
-    font-size: 20px;
-    border-radius: 5px;
-    margin-left: 5px;
-    border: none; 
+.navbar .rightSide .searchBar > button {
+  height: fit-content;
+  width: fit-content;
+  font-size: 20px;
+  border-radius: 5px;
+  margin-left: 5px;
+  border: none;
 }
 
 .results-list {
@@ -132,29 +130,72 @@ body{
   background-color: #efefef;
 }
 
-
-@media only screen and (max-width:850px) {
-  .navbar .leftSide .links a{
+/* options */
+.select {
+  position: absolute;
+  background: white;
+  border-radius: 0.2rem;
+  width: calc(100% - 37px);
+  z-index: 9;
+  box-shadow: 1px 1px 1px #c1c1c1;
+  /* transform: scale(); */
+  /* height: 0; */
+  transition: 1s;
+  max-height: 200px;
+  animation: expand 1s linear;
+  overflow-y: scroll;
+  justify-content: start;
+}
+.select > div {
+  padding: 0.2rem 1rem;
+  display: flex;
+  align-self: left;
+  /* border-bottom: 0.1px #d3d3d3 solid; */
+}
+.select-collapse {
+  animation: collapse 1s linear;
+}
+.loader{
+  margin-top: 200px;
+}
+@keyframes collapse {
+  from {
+    max-height: 200px; /* Change this value to the height you want when expanded */
+  }
+  to {
+    max-height: 0;
+  }
+}
+@keyframes expand {
+  from {
+    max-height: 0;
+  }
+  to {
+    max-height: 200px; /* Change this value to the height you want when expanded */
+  }
+}
+@media only screen and (max-width: 850px) {
+  .navbar .leftSide .links a {
     font-size: 20px;
   }
 }
 
-@media only screen and (max-width:880px) {
-  .navbar .leftSide .links a{
+@media only screen and (max-width: 880px) {
+  .navbar .leftSide .links a {
     font-size: 15px;
   }
 }
 
-@media only screen and (max-width:650px) {
-  .navbar .rightSide .searchBar{
+@media only screen and (max-width: 650px) {
+  .navbar .rightSide .searchBar {
     position: absolute;
     /* margin-right: 40px;  */
   }
-  .navbar .rightSide .searchBar> button{
+  .navbar .rightSide .searchBar > button {
     margin-right: 15px;
     /* margin-right: 40px;  */
   }
-  .navbar .leftSide >button{
+  .navbar .leftSide > button {
     display: flex;
     border: none;
     padding: 5px;
@@ -162,29 +203,25 @@ body{
     color: white;
     background-color: black;
   }
-  .navbar .leftSide .links{
+  .navbar .leftSide .links {
     display: none;
   }
-  .navbar .leftSide #hidden{
+  .navbar .leftSide #hidden {
     position: absolute;
     left: 0px;
     top: 80px;
     height: 230px;
     z-index: 1;
-    max-height:230px;
+    max-height: 230px;
     width: 100%;
-    background-color:black;
+    background-color: black;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .navbar .leftSide #hidden a{
+  .navbar .leftSide #hidden a {
     margin: 10px;
     font-size: 25px;
   }
 }
-
-
-
-
