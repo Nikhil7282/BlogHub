@@ -5,14 +5,12 @@ import SignUp from './Pages/UserPages/SignUp';
 import Home from './components/Home';
 import AddPost from './Pages/PostsPages/AddPost'
 import UserPost from './Pages/PostsPages/UserPost'
-import NavbarComponent from './components/Navbar';
 import ProtectedRoute from "./authorization/ProtectedRoute"
 import PublicRoute from './authorization/PublicRoute';
 import EditPost from './Pages/PostsPages/EditPost';
 import Dashboard from './components/Dashboard';
 import PostPage from './Pages/PostsPages/PostPage';
 import NewNavbar from './components/NewNavbar';
-import SearchList from './components/Search/SearchList';
 import ForgotPassword from './components/ForgetPassword/ForgetPassword';
 import ResetPassword from './components/ForgetPassword/ResetPassword';
 
