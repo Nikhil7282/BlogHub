@@ -61,13 +61,14 @@ function PostPage() {
       .delete(
         `/blogs/comment/${id}`,
         {
+          data:{
+            commentId:commentId
+          },
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
-        data:{
-          commentId:commentId
-        }
+        
         })
         // authFetchDel(`/blogs/comment/${id}`,{data:{commentId:commentId}})
       .then((res) => {
@@ -79,7 +80,7 @@ function PostPage() {
         rerender(!render)
       })
       .catch((error) => {
-        // console.log(error);
+        console.log(error);
         toast.error(error.response.data.message);
       });
     // const log=(config)=>{
@@ -142,7 +143,7 @@ function PostPage() {
           <Col>
             <h2 className="mt-3">Comments:</h2>
             {state.data.map((comment, index) => (
-              <div style={{ border: "1px solid black" }} className="mt-1">
+              <div key={index} style={{ border: "1px solid black" }} className="mt-1">
                 <h6 style={{ margin: 0 }}>{comment.name + ":"}</h6>
                 <p style={{ margin: 0 }} key={index}>
                   {comment.comment}
