@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { HiCubeTransparent } from "react-icons/hi";
 import { IoReorderThree } from "react-icons/io5"
-import { IoSearch } from "react-icons/io5";
 import "../App.css";
 import { Outlet, useNavigate } from "react-router-dom";
-import SearchBar from "./Search/SearchBar";
+import SearchBar from "./SearchBar";
 
 function NewNavbar({ state }) {
   const navigate=useNavigate()

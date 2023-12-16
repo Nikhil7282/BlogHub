@@ -1,31 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { url } from "../../App";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { useAuth } from "../../context/AuthContext";
 
 export default function SignUp() {
-  const [userSignUp, setUserSignUp] = useState({
-    username: "",
-    email: "",
-    password: "",
-    phone: "",
-  });
+  const auth=useAuth()
   const Navigate = useNavigate();
-  const handleSubmit = async () => {
+  const handleSubmit=async(e)=>{
+    e.preventDefault()
+    const formData=new FormData(e.currentTarget)
+    const username=formData.get("username")
+    const email=formData.get("email")
+    const password=formData.get("password")
+    const phone=formData.get("phone")
+    // console.log(username,password);
     try {
-      const status = await axios.post(`${url}/users/signup`, userSignUp);
-      // const status = await axios.post(`/users/signup`, userSignUp);
-      // console.log(status);
-      toast.success(status.data.message);
-      Navigate("/login");
+      await auth.signup(username,email,password,phone)
+      toast.success("User Signed Up Successfully",{id:"login"})
+      Navigate('/login')
     } catch (error) {
-      // console.log(error);
-      // console.log(error.response);
-      toast.error(error.response.data.message);
+      console.log(error);
+      toast.error("Signing In Failed",{id:"login"})
     }
-  };
+  }
   return (
     <div>
       <Container>
@@ -38,7 +36,7 @@ export default function SignUp() {
                     BlogHub
                   </h2>
                   <div className="mb-3">
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
                       <Form.Group className="mb-3" controlId="Name">
                         <Form.Label className="text-center">
                           Username
@@ -46,12 +44,7 @@ export default function SignUp() {
                         <Form.Control
                           type="text"
                           placeholder="Enter username"
-                          onChange={(e) => {
-                            setUserSignUp({
-                              ...userSignUp,
-                              username: e.target.value,
-                            });
-                          }}
+                          name="username"
                         />
                       </Form.Group>
 
@@ -62,12 +55,7 @@ export default function SignUp() {
                         <Form.Control
                           type="email"
                           placeholder="Enter email"
-                          onChange={(e) => {
-                            setUserSignUp({
-                              ...userSignUp,
-                              email: e.target.value,
-                            });
-                          }}
+                          name="email"
                         />
                       </Form.Group>
 
@@ -79,12 +67,7 @@ export default function SignUp() {
                         <Form.Control
                           type="password"
                           placeholder="Password"
-                          onChange={(e) => {
-                            setUserSignUp({
-                              ...userSignUp,
-                              password: e.target.value,
-                            });
-                          }}
+                          name="password"
                         />
                       </Form.Group>
                       <Form.Group
@@ -95,12 +78,7 @@ export default function SignUp() {
                         <Form.Control
                           type="tel"
                           placeholder="Phone"
-                          onChange={(e) => {
-                            setUserSignUp({
-                              ...userSignUp,
-                              phone: e.target.value,
-                            });
-                          }}
+                          name="phone"
                         />
                       </Form.Group>
                       <Form.Group
@@ -110,9 +88,7 @@ export default function SignUp() {
                       <div className="d-grid">
                         <Button
                           variant="dark"
-                          onClick={() => {
-                            handleSubmit();
-                          }}
+                          type="submit"
                         >
                           Create Account
                         </Button>
