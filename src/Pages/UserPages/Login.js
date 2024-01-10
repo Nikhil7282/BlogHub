@@ -1,36 +1,27 @@
-// import jwt from 'jsonwebtoken'
-// import { loginUser } from "../../axios/customeInstence";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
-import {useNavigate} from 'react-router-dom'
-import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { url } from "../../App";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
-  const [UserDetails,setUserDetails]=useState({username:"",password:""})
-  const Navigate=useNavigate()
-  const handleLogin=async()=>{
-   try {
-    await axios.post(`${url}/users/login`,UserDetails)
-    // await axios.post(`/users/login`,UserDetails)
-    // await loginUser.request('/',UserDetails)
-    // console.log(status)
-    .then((res)=>{
-      toast.success(res.data.message)
-      // console.log(res.data.token)
-      // const userData=jwt.decode(res.data.token)
-      // console.log(userData);
-      sessionStorage.setItem('username',res.data.username)
-      sessionStorage.setItem('userId',res.data.userId)
-      sessionStorage.setItem('token',res.data.token)
-      Navigate('/user/dashboard')
-    })
-   } catch (error) {
-    // console.log(error)
-    toast.error(error.response.data.message)
-   }
-  }
+  const auth = useAuth();
+  const Navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const username = formData.get("username");
+    const password = formData.get("password");
+    // console.log(username,password);
+    try {
+      await auth.login(username, password);
+      toast.success(`Welcome ${username}`, { id: "login" });
+      Navigate("/user/dashboard");
+    } catch (error) {
+      console.log(error);
+      toast.error("Signing In Failed", { id: "login" });
+    }
+  };
   return (
     <div>
       <Container>
@@ -41,14 +32,20 @@ export default function Login() {
               <Card.Body>
                 <div className="mb-3 mt-md-4">
                   <h2 className="fw-bold mb-2 text-uppercase ">BlogHub</h2>
-                  <p className=" mb-5">Please enter your Username and Password</p>
+                  <p className=" mb-5">
+                    Please enter your Username and Password
+                  </p>
                   <div className="mb-3">
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
                       <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className="text-center">
                           Username
                         </Form.Label>
-                        <Form.Control type="text" placeholder="Enter Username" onChange={(e)=>{setUserDetails({...UserDetails,username:e.target.value})}} />
+                        <Form.Control
+                          type="text"
+                          placeholder="Enter Username"
+                          name="username"
+                        />
                       </Form.Group>
 
                       <Form.Group
@@ -56,7 +53,11 @@ export default function Login() {
                         controlId="formBasicPassword"
                       >
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" onChange={(e)=>{setUserDetails({...UserDetails,password:e.target.value})}}/>
+                        <Form.Control
+                          type="password"
+                          placeholder="Password"
+                          name="password"
+                        />
                       </Form.Group>
                       <Form.Group
                         className="mb-3"
@@ -69,7 +70,7 @@ export default function Login() {
                         </p>
                       </Form.Group>
                       <div className="d-grid">
-                        <Button variant="dark" onClick={handleLogin}>
+                        <Button variant="dark" type="submit">
                           Login
                         </Button>
                       </div>
@@ -77,12 +78,13 @@ export default function Login() {
                     <div className="mt-3">
                       <p className="mb-0  text-center">
                         Don't have an account?{" "}
-                        <button className="text-primary fw-bold signupBtn"
-                        onClick={()=>{
-                            Navigate('/register')
-                        }}
+                        <button
+                          className="text-primary fw-bold signupBtn"
+                          onClick={() => {
+                            Navigate("/register");
+                          }}
                         >
-                            SignUp
+                          SignUp
                         </button>
                       </p>
                     </div>

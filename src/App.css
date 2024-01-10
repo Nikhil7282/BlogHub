@@ -122,6 +122,19 @@ body {
   overflow-y: auto;
 }
 
+.breadcrumbs {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex: 50%;
+  font-size: 16px;
+  margin-left: 20px;
+}
+.breadcrumbs > a {
+  text-decoration: none;
+  color: #333;
+}
+
 .search-result {
   padding: 10px 20px;
 }
@@ -130,50 +143,6 @@ body {
   background-color: #efefef;
 }
 
-/* options */
-.select {
-  position: absolute;
-  background: white;
-  border-radius: 0.2rem;
-  width: calc(100% - 37px);
-  z-index: 9;
-  box-shadow: 1px 1px 1px #c1c1c1;
-  /* transform: scale(); */
-  /* height: 0; */
-  transition: 1s;
-  max-height: 200px;
-  animation: expand 1s linear;
-  overflow-y: scroll;
-  justify-content: start;
-}
-.select > div {
-  padding: 0.2rem 1rem;
-  display: flex;
-  align-self: left;
-  /* border-bottom: 0.1px #d3d3d3 solid; */
-}
-.select-collapse {
-  animation: collapse 1s linear;
-}
-.loader{
-  margin-top: 200px;
-}
-@keyframes collapse {
-  from {
-    max-height: 200px; /* Change this value to the height you want when expanded */
-  }
-  to {
-    max-height: 0;
-  }
-}
-@keyframes expand {
-  from {
-    max-height: 0;
-  }
-  to {
-    max-height: 200px; /* Change this value to the height you want when expanded */
-  }
-}
 @media only screen and (max-width: 850px) {
   .navbar .leftSide .links a {
     font-size: 20px;

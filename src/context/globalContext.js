@@ -7,7 +7,6 @@ export const initialState={
     data:[],
     error:null
 }
-
 export const reducer=(state,action)=>{
     if(action.type==="Fetching"){
       return {...state,loading:true}
@@ -43,28 +42,19 @@ export const postContext=createContext(initialState)
 
 const PostProvider=({children})=>{
     const [state,dispatch]=useReducer(reducer,initialState)
-    // console.log(state);
     useEffect(()=>{
         fetchData()
       },[])
-    
       const fetchData = useCallback(async()=>{
         try {
           dispatch({type:"Fetching"})
           const res=await axios.get(`${url}/blogs`)
-          
-          // const res=await axios.get(`/blogs`)
-          // const  res=await fetchBlogs.request()
-          // console.log(res);
           dispatch({type:"Fetch_Success",payload:res.data})
-          // setBlogData(res.data)
-          // console.log(res.data)
         } catch (error) {
           dispatch({type:"Fetch_Error",payload:error})
           console.log(error)
         }
-      })
-
+      },[state])
     return(
         <postContext.Provider
         value={{state:state,dispatch:dispatch}}
