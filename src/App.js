@@ -47,7 +47,6 @@ function App() {
           <ResetPassword/>
         </PublicRoute>
         }/>
-        {/* <Route path='/dashboard' element={<Dashboard/>}/> */}
         <Route path='/user' element={
           <ProtectedRoute>
             <NewNavbar state="Dashboard"/>

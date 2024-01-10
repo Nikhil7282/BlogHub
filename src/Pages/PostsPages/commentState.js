@@ -13,6 +13,18 @@ export const commentReducer=(state,action)=>{
     else if(action.type==="FetchCommentError"){
         return {...state,error:action.payload}
     }
+    else if(action.type==="NewComment"){
+        // console.log(action.payload);
+        const newData=[...state.data,action.payload]
+        return {...state,loading:false,data:newData}
+    }
+    else if(action.type==="DeleteComment"){
+        const filteredComments=state.data.filter((comment)=>{
+            return comment._id !== action.payload
+        })
+        // console.log(filteredComments);
+        return {...state,data:filteredComments}
+    }
     else{
         return state
     }

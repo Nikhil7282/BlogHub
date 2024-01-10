@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { HiCubeTransparent } from "react-icons/hi";
-import { IoReorderThree } from "react-icons/io5"
+import { IoReorderThree } from "react-icons/io5";
 import "../App.css";
 import { Outlet, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import BreadCrumbs from "./BreadCrumbs";
 
 function NewNavbar({ state }) {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [showLinks, setShowLinks] = useState(false);
-  const [showSearch,setShowSearch]=useState(false)
-  useEffect(()=>{
-    if(window.location.pathname === "/user/dashboard"){
-      setShowSearch(true)
+  const [showSearch, setShowSearch] = useState(false);
+  useEffect(() => {
+    if (window.location.pathname === "/user/dashboard") {
+      setShowSearch(true);
     }
-  })
-  const logout=async()=>{
-    await sessionStorage.clear()
-    navigate('/login')
-  }
+  });
+  const logout = async () => {
+    await sessionStorage.clear();
+    navigate("/login");
+  };
   return (
     <div>
       {state === "Home" ? (
@@ -41,8 +42,8 @@ function NewNavbar({ state }) {
         <div>
           <div className="navbar">
             <div className="leftSide">
-              <div className="links" id={showLinks?"hidden":""}>
-                <a style={{display:showLinks?"none":""}}>
+              <div className="links" id={showLinks ? "hidden" : ""}>
+                <a style={{ display: showLinks ? "none" : "" }}>
                   <HiCubeTransparent className="icon" />
                 </a>
                 <a href="/user/dashboard">BlogHub</a>
@@ -50,14 +51,24 @@ function NewNavbar({ state }) {
                 <a href="/user/userpost">My Post</a>
                 <a onClick={logout}>Logout</a>
               </div>
-              <button onClick={()=>{setShowLinks(!showLinks)}}><IoReorderThree/></button>
+              <button
+                onClick={() => {
+                  setShowLinks(!showLinks);
+                }}
+              >
+                <IoReorderThree />
+              </button>
             </div>
-            <div className="rightSide" style={{display:showSearch?"":"none"}}>
-              <SearchBar/>
+            <div
+              className="rightSide"
+              style={{ display: showSearch ? "" : "none" }}
+            >
+              <SearchBar />
               {/* <input type="text" placeholder="Search" />
               <button><IoSearch/></button> */}
             </div>
           </div>
+          <BreadCrumbs />
           <Outlet />
         </div>
       )}
