@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { IoSearch } from "react-icons/io5";
-import { postContext } from "../../context/globalContext";
+import { postContext } from "../context/globalContext";
 
 const SearchBar = () => {
   const { state } = useContext(postContext);
