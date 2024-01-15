@@ -1,29 +1,35 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 
 export default function SignUp() {
-  const auth=useAuth()
+  const auth = useAuth();
+  const inputRef = useRef(null);
   const Navigate = useNavigate();
-  const handleSubmit=async(e)=>{
-    e.preventDefault()
-    const formData=new FormData(e.currentTarget)
-    const username=formData.get("username")
-    const email=formData.get("email")
-    const password=formData.get("password")
-    const phone=formData.get("phone")
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const username = formData.get("username");
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const phone = formData.get("phone");
     // console.log(username,password);
     try {
-      await auth.signup(username,email,password,phone)
-      toast.success("User Signed Up Successfully",{id:"login"})
-      Navigate('/login')
+      await auth.signup(username, email, password, phone);
+      toast.success("User Signed Up Successfully", { id: "login" });
+      Navigate("/login");
     } catch (error) {
       console.log(error);
-      toast.error("Signing In Failed",{id:"login"})
+      toast.error("Signing In Failed", { id: "login" });
     }
-  }
+  };
   return (
     <div>
       <Container>
@@ -42,6 +48,7 @@ export default function SignUp() {
                           Username
                         </Form.Label>
                         <Form.Control
+                          ref={inputRef}
                           type="text"
                           placeholder="Enter username"
                           name="username"
@@ -61,7 +68,7 @@ export default function SignUp() {
 
                       <Form.Group
                         className="mb-3"
-                        controlId="formBasicPassword"
+                        controlId="formBasicSignupPassword"
                       >
                         <Form.Label>Password</Form.Label>
                         <Form.Control
@@ -86,10 +93,7 @@ export default function SignUp() {
                         controlId="formBasicCheckbox"
                       ></Form.Group>
                       <div className="d-grid">
-                        <Button
-                          variant="dark"
-                          type="submit"
-                        >
+                        <Button variant="dark" type="submit">
                           Create Account
                         </Button>
                       </div>

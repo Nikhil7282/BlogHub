@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -7,6 +7,25 @@ import { useAuth } from "../../context/AuthContext";
 export default function Login() {
   const auth = useAuth();
   const Navigate = useNavigate();
+  const inputRefs = useRef([]);
+  // console.log(inputRefs);
+  useEffect(() => {
+    if (inputRefs.current[0]) {
+      inputRefs.current[0].focus();
+    }
+    // let handleKeyPress = (e) => {
+    //   e.preventDefault();
+    //   if (e.key === "Enter" && inputRefs.current[0] && inputRefs.current[1]) {
+    //     handleSubmit();
+    //   } else {
+    //     inputRefs.current[1].focus();
+    //   }
+    // };
+    // window.addEventListener("keypress", handleKeyPress);
+
+    // return () => window.removeEventListener("keypress", handleKeyPress);
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -42,6 +61,7 @@ export default function Login() {
                           Username
                         </Form.Label>
                         <Form.Control
+                          ref={(input) => (inputRefs.current[0] = input)}
                           type="text"
                           placeholder="Enter Username"
                           name="username"
@@ -54,6 +74,7 @@ export default function Login() {
                       >
                         <Form.Label>Password</Form.Label>
                         <Form.Control
+                          ref={(input) => (inputRefs.current[1] = input)}
                           type="password"
                           placeholder="Password"
                           name="password"

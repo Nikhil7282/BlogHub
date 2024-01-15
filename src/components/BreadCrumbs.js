@@ -15,9 +15,9 @@ function BreadCrumbs() {
         breadcrumbsPath += `/${name}`;
         const isLastLink = idx === pathnames.length - 1;
         return isLastLink ? (
-          <span key={name}>/ {name}</span>
+          <span key={idx}>/ {name}</span>
         ) : (
-          <Link key={name} to={breadcrumbsPath}>
+          <Link key={idx} to={breadcrumbsPath}>
             / {name}
           </Link>
         );

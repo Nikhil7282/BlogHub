@@ -60,7 +60,6 @@ function Dashboard() {
       );
       dispatch({ type: "DisLike_Post", payload: { index, postId: post._id } });
       toast.error("Disliked");
-      
     } catch (error) {
       console.log(error);
     }
@@ -81,7 +80,7 @@ function Dashboard() {
   };
 
   if (state.loading === true) {
-    return <Loader/>
+    return <Loader />;
   }
   return (
     <div>
