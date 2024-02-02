@@ -1,12 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
-
+import { lineSpinner } from "ldrs";
 export default function SignUp() {
   const auth = useAuth();
+  lineSpinner.register();
+
   const inputRef = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const Navigate = useNavigate();
   useEffect(() => {
     if (inputRef.current) {
@@ -22,10 +25,13 @@ export default function SignUp() {
     const phone = formData.get("phone");
     // console.log(username,password);
     try {
+      setIsSubmitting(true);
       await auth.signup(username, email, password, phone);
+      setIsSubmitting(false);
       toast.success("User Signed Up Successfully", { id: "login" });
       Navigate("/login");
     } catch (error) {
+      setIsSubmitting(false);
       console.log(error);
       toast.error("Signing In Failed", { id: "login" });
     }
@@ -94,7 +100,15 @@ export default function SignUp() {
                       ></Form.Group>
                       <div className="d-grid">
                         <Button variant="dark" type="submit">
-                          Create Account
+                          {isSubmitting ? (
+                            <l-line-spinner
+                              size="25"
+                              speed="0.5"
+                              color="white"
+                            ></l-line-spinner>
+                          ) : (
+                            "Sign Up"
+                          )}
                         </Button>
                       </div>
                     </Form>

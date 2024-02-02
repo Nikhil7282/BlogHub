@@ -3,12 +3,15 @@ import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
+import { lineSpinner } from "ldrs";
 
 export default function Login() {
   const auth = useAuth();
+  lineSpinner.register();
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const Navigate = useNavigate();
   const inputRefs = useRef([]);
-  // console.log(inputRefs);
   useEffect(() => {
     if (inputRefs.current[0]) {
       inputRefs.current[0].focus();
@@ -33,10 +36,13 @@ export default function Login() {
     const password = formData.get("password");
     // console.log(username,password);
     try {
+      setIsSubmitting(true);
       await auth.login(username, password);
+      setIsSubmitting(false);
       toast.success(`Welcome ${username}`, { id: "login" });
       Navigate("/user/dashboard");
     } catch (error) {
+      setIsSubmitting(false);
       console.log(error);
       toast.error("Signing In Failed", { id: "login" });
     }
@@ -92,7 +98,15 @@ export default function Login() {
                       </Form.Group>
                       <div className="d-grid">
                         <Button variant="dark" type="submit">
-                          Login
+                          {isSubmitting ? (
+                            <l-line-spinner
+                              size="25"
+                              speed="0.5"
+                              color="white"
+                            ></l-line-spinner>
+                          ) : (
+                            "Login"
+                          )}
                         </Button>
                       </div>
                     </Form>
