@@ -5,6 +5,7 @@ function BreadCrumbs() {
   const { pathname } = useLocation();
   const pathnames = pathname.split("/").filter((x) => x);
   pathnames.splice(0, 1);
+  // console.log(pathnames);
   let breadcrumbsPath = "";
   return (
     <div className="breadcrumbs">

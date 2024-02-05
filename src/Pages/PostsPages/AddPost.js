@@ -1,11 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import axios from "axios";
 import { url } from "../../App";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { postContext } from "../../context/globalContext";
+import { lineSpinner } from "ldrs";
+
 function AddPost() {
+  lineSpinner.register();
   const Navigate = useNavigate();
+  const { state, dispatch } = useContext(postContext);
+  const [addingPost, setAddingPost] = useState(false);
+
   const inputRefs = useRef([]);
   const [userBlog, setUserBlog] = useState({
     title: "",
@@ -16,9 +23,10 @@ function AddPost() {
     if (inputRefs.current[0]) {
       inputRefs.current[0].focus();
     }
-  });
+  }, []);
 
   const handleSubmit = () => {
+    setAddingPost(true);
     axios
       .post(`${url}/blogs`, userBlog, {
         headers: {
@@ -26,11 +34,13 @@ function AddPost() {
         },
       })
       .then((res) => {
-        // console.log(res.data)
+        setAddingPost(false);
+        dispatch({ type: "Add_Post", payload: res.data.data });
         toast.success(res.data.message);
         Navigate("/user/dashboard");
       })
       .catch((error) => {
+        setAddingPost(false);
         toast.error(error.response.data.message);
         console.log(error);
       });
@@ -89,7 +99,15 @@ function AddPost() {
           />
         </Form.Group>
         <Button className="mt-4" variant="primary" onClick={handleSubmit}>
-          Post Blog
+          {addingPost ? (
+            <l-line-spinner
+              size="25"
+              speed="0.5"
+              color="white"
+            ></l-line-spinner>
+          ) : (
+            "Post Blog"
+          )}
         </Button>
       </Form>
     </Container>
