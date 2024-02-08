@@ -111,15 +111,26 @@ body {
 }
 
 .results-list {
+  position: absolute;
   width: 100%;
   background-color: white;
   display: flex;
   flex-direction: column;
+  width: 220px;
   box-shadow: 0px 0px 8px #ddd;
   border-radius: 10px;
   margin-top: 1rem;
   max-height: 300px;
   overflow-y: auto;
+  color: black;
+  z-index: 1;
+}
+.result-list-item {
+  transition: ease all 0.5s;
+}
+.result-list-item:hover {
+  background-color: lightgray;
+  color: aliceblue;
 }
 
 .breadcrumbs {
@@ -132,7 +143,7 @@ body {
 }
 .breadcrumbs > a {
   text-decoration: none;
-  color: #333;
+  color: blue;
 }
 
 .search-result {
