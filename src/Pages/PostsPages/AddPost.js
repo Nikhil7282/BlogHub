@@ -19,6 +19,7 @@ function AddPost() {
     description: "",
     content: "",
   });
+
   useEffect(() => {
     if (inputRefs.current[0]) {
       inputRefs.current[0].focus();
@@ -57,6 +58,7 @@ function AddPost() {
         flexDirection: "column",
         minHeight: "100vh",
         backgroundColor: "lightgray",
+        boxShadow: "0px 10px 15px -3px rgba(0,0,0,0.1)",
       }}
     >
       <h1 className="mb-5">Post New Blog</h1>

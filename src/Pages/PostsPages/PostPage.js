@@ -54,9 +54,9 @@ function PostPage() {
     <Container
       className="mt-5"
       style={{
-        width: "100vw",
+        // width: "fit-content",
         backgroundColor: "#f8f9fa",
-        padding: "2rem",
+        // padding: "2rem",
         height: "fit-content",
       }}
     >
@@ -70,7 +70,7 @@ function PostPage() {
             justifyContent: "center",
           }}
           xs={12}
-          md={8}
+          // md={8}
           lg={6}
         >
           <h1>{card.title}</h1>
@@ -100,7 +100,7 @@ function PostPage() {
         </Col>
         <Col
           xs={12}
-          md={8}
+          // md={8}
           lg={6}
           className="comment-container"
           style={{ overflowY: "scroll", position: "relative", height: "50vh" }}
