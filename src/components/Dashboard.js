@@ -110,9 +110,15 @@ function Dashboard() {
           ) : (
             state.data.slice(page * 10 - 10, page * 10).map((card) => (
               <Card
+                className="cards"
                 bg={getRandomColor().toLowerCase()}
                 key={card._id}
-                style={{ width: "18rem", margin: "10px" }}
+                style={{
+                  width: "18rem",
+                  margin: "10px",
+                  boxShadow:
+                    "0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1)",
+                }}
                 text={
                   getRandomColor().toLowerCase() === "light" ? "dark" : "white"
                 }

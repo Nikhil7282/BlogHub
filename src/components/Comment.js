@@ -33,7 +33,7 @@ function Comment({ comment, id, dispatch }) {
       });
   };
   return (
-    <div style={{ border: "1px solid black" }} className="mt-1">
+    <div style={{ border: "1px solid black", width: "50%" }} className="mt-1">
       <h6 style={{ margin: 0 }}>{comment.name + ":"}</h6>
       <p style={{ margin: 0 }} key={comment._id}>
         {comment.comment}

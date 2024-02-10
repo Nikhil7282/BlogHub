@@ -50,19 +50,20 @@ function AddPost() {
   return (
     <Container
       style={{
-        maxHeight: "100vh",
-        maxWidth: "100vw",
+        height: "fit-content",
+        width: "50vw",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
-        minHeight: "100vh",
-        backgroundColor: "lightgray",
-        boxShadow: "0px 10px 15px -3px rgba(0,0,0,0.1)",
+        borderRadius: "25px",
+        padding: "25px",
+        boxShadow:
+          "0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1)",
       }}
     >
-      <h1 className="mb-5">Post New Blog</h1>
-      <Form style={{ width: "100%", maxWidth: "400px", marginBottom: "55px" }}>
+      <h1 className="mb-3">Post New Blog</h1>
+      <Form style={{ width: "100%", maxWidth: "400px" }}>
         <Form.Group controlId="name">
           <Form.Label>Title</Form.Label>
           <Form.Control

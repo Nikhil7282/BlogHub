@@ -8,6 +8,14 @@ body {
   padding: 0;
 }
 
+.cards {
+  transition: transform 0.3s ease-in-out;
+}
+
+.cards:hover {
+  transform: translateY(-5px) scale(1.08);
+}
+
 .signupBtn {
   border: none;
   background: none;
@@ -152,6 +160,16 @@ body {
 
 .search-result:hover {
   background-color: #efefef;
+}
+.comment-container ::-webkit-scrollbar {
+  display: none !important;
+}
+
+.comment_list {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 @media only screen and (max-width: 768px) {
