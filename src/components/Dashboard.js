@@ -8,6 +8,7 @@ import { AiFillLike } from "react-icons/ai";
 import { postContext } from "../context/globalContext.js";
 import Loader from "./Loader.js";
 import PaginationComp from "./PaginationComp.js";
+import Blog from "./Blog.js";
 
 function Dashboard() {
   const { state, dispatch } = useContext(postContext);
@@ -109,66 +110,67 @@ function Dashboard() {
             <h1>No Posts Yet..</h1>
           ) : (
             state.data.slice(page * 10 - 10, page * 10).map((card) => (
-              <Card
-                className="cards"
-                bg={getRandomColor().toLowerCase()}
-                key={card._id}
-                style={{
-                  width: "18rem",
-                  margin: "10px",
-                  boxShadow:
-                    "0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1)",
-                }}
-                text={
-                  getRandomColor().toLowerCase() === "light" ? "dark" : "white"
-                }
-              >
-                <Card.Body
-                  onClick={() =>
-                    Navigate(`/user/postPage/${card._id}`, {
-                      state: { card: card },
-                    })
-                  }
-                >
-                  <Card.Title>{card.title}</Card.Title>
-                  <Card.Text>{card.description}</Card.Text>
-                  <Card.Text>{card.content}</Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <div>{new Date(card.createdAt).toLocaleDateString()}</div>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      {card.likes.some((userId) => {
-                        return userId == sessionStorage.getItem("userId");
-                      }) ? (
-                        <AiFillLike
-                          style={{ color: "red" }}
-                          onClick={() => {
-                            handleDisLike(
-                              card._id,
-                              sessionStorage.getItem("userId")
-                            );
-                          }}
-                        />
-                      ) : (
-                        <AiFillLike
-                          onClick={() => {
-                            handleLike(
-                              card._id,
-                              sessionStorage.getItem("userId")
-                            );
-                          }}
-                        />
-                      )}
-                      <span style={{ marginLeft: "5px" }}>
-                        {card.likes.length} Likes
-                      </span>
-                    </div>
-                  </div>
-                </Card.Footer>
-              </Card>
+              <Blog blog={card} key={card._id} />
+              // <Card
+              //   className="cards"
+              //   bg={getRandomColor().toLowerCase()}
+              //   key={card._id}
+              //   style={{
+              //     width: "18rem",
+              //     margin: "10px",
+              //     boxShadow:
+              //       "0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1)",
+              //   }}
+              //   text={
+              //     getRandomColor().toLowerCase() === "light" ? "dark" : "white"
+              //   }
+              // >
+              //   <Card.Body
+              //     onClick={() =>
+              //       Navigate(`/user/postPage/${card._id}`, {
+              //         state: { card: card },
+              //       })
+              //     }
+              //   >
+              //     <Card.Title>{card.title}</Card.Title>
+              //     <Card.Text>{card.description}</Card.Text>
+              //     <Card.Text>{card.content}</Card.Text>
+              //   </Card.Body>
+              //   <Card.Footer>
+              //     <div
+              //       style={{ display: "flex", justifyContent: "space-between" }}
+              //     >
+              //       <div>{new Date(card.createdAt).toLocaleDateString()}</div>
+              //       <div style={{ display: "flex", alignItems: "center" }}>
+              //         {card.likes.some((userId) => {
+              //           return userId == sessionStorage.getItem("userId");
+              //         }) ? (
+              //           <AiFillLike
+              //             style={{ color: "red" }}
+              //             onClick={() => {
+              //               handleDisLike(
+              //                 card._id,
+              //                 sessionStorage.getItem("userId")
+              //               );
+              //             }}
+              //           />
+              //         ) : (
+              //           <AiFillLike
+              //             onClick={() => {
+              //               handleLike(
+              //                 card._id,
+              //                 sessionStorage.getItem("userId")
+              //               );
+              //             }}
+              //           />
+              //         )}
+              //         <span style={{ marginLeft: "5px" }}>
+              //           {card.likes.length} Likes
+              //         </span>
+              //       </div>
+              //     </div>
+              //   </Card.Footer>
+              // </Card>
             ))
           )}
         </div>

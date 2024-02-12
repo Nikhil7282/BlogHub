@@ -8,7 +8,6 @@ import { lineSpinner } from "ldrs";
 export default function Login() {
   const auth = useAuth();
   lineSpinner.register();
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const Navigate = useNavigate();
   const inputRefs = useRef([]);
@@ -16,17 +15,6 @@ export default function Login() {
     if (inputRefs.current[0]) {
       inputRefs.current[0].focus();
     }
-    // let handleKeyPress = (e) => {
-    //   e.preventDefault();
-    //   if (e.key === "Enter" && inputRefs.current[0] && inputRefs.current[1]) {
-    //     handleSubmit();
-    //   } else {
-    //     inputRefs.current[1].focus();
-    //   }
-    // };
-    // window.addEventListener("keypress", handleKeyPress);
-
-    // return () => window.removeEventListener("keypress", handleKeyPress);
   }, []);
 
   const handleSubmit = async (e) => {

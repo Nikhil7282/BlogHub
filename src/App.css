@@ -172,6 +172,11 @@ body {
   flex-direction: column;
 }
 
+.blog-header {
+  display: flex;
+  align-items: center;
+}
+
 @media only screen and (max-width: 768px) {
   .comment-container {
     margin-top: 10px !important;

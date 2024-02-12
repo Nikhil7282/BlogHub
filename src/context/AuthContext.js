@@ -12,10 +12,12 @@ export const AuthProvider = ({ children }) => {
       sessionStorage.setItem("username", data.username);
       sessionStorage.setItem("userId", data.userId);
       sessionStorage.setItem("token", data.token);
+      localStorage.setItem("savedBlogs", data.savedBlogs);
       setUser({
         username: data.username,
         userId: data.userId,
         token: data.token,
+        savedBlogs: data.savedBlogs,
       });
       setIsLoggedIn(true);
     }

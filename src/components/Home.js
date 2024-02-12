@@ -38,6 +38,7 @@ function Home() {
           <div className="d-flex flex-wrap justify-content-center mt-5">
             {state.data.map((card) => (
               <Card
+                className="cards"
                 bg={getRandomColor().toLowerCase()}
                 key={card._id}
                 style={{ width: "18rem", margin: "10px" }}
