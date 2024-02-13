@@ -176,6 +176,20 @@ body {
   display: flex;
   align-items: center;
 }
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* flex-direction: column; */
+}
+.quotes {
+  width: 50vw;
+}
+.home-animation {
+  width: 100vw;
+  height: 100vh;
+}
 
 @media only screen and (max-width: 768px) {
   .comment-container {

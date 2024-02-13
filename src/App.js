@@ -14,8 +14,8 @@ import NewNavbar from "./components/NewNavbar";
 import ForgotPassword from "./components/ForgetPassword/ForgetPassword";
 import ResetPassword from "./components/ForgetPassword/ResetPassword";
 
-export const url = "http://localhost:8000";
-// export const url = "https://blohhub.onrender.com";
+// export const url = "http://localhost:8000";
+export const url = "https://blohhub.onrender.com";
 
 function App() {
   return (
