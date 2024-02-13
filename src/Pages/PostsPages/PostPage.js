@@ -103,23 +103,29 @@ function PostPage() {
           // md={8}
           lg={6}
           className="comment-container"
-          style={{ overflowY: "scroll", position: "relative", height: "50vh" }}
+          style={{
+            overflowY: "scroll",
+            position: "relative",
+            height: "50vh",
+          }}
         >
-          {state.data.length > 0 ? (
-            <>
-              <h3>Comments:</h3>
-              {state.data.map((comment) => (
-                <Comment
-                  key={comment._id}
-                  comment={comment}
-                  id={id}
-                  dispatch={dispatch}
-                />
-              ))}
-            </>
-          ) : (
-            <h1>No Comments</h1>
-          )}
+          <div className="comment_list">
+            {state.data.length > 0 ? (
+              <>
+                <h3>Comments:</h3>
+                {state.data.map((comment) => (
+                  <Comment
+                    key={comment._id}
+                    comment={comment}
+                    id={id}
+                    dispatch={dispatch}
+                  />
+                ))}
+              </>
+            ) : (
+              <h1>No Comments</h1>
+            )}
+          </div>
         </Col>
       </Row>
     </Container>
