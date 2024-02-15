@@ -1,30 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Container, Card } from "react-bootstrap";
 import { postContext } from "../context/globalContext.js";
 import NewNavbar from "./NewNavbar.js";
 import Loader from "./Loader.js";
 import { useNavigate } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
 function Home() {
   const { state } = useContext(postContext);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-        } else {
-          entry.target.classList.remove("show");
-        }
-      });
-    });
-
-    const hiddenElements = document.querySelectorAll(".hidden");
-    hiddenElements.forEach((el) => observer.observe(el));
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+  const [ref, inView] = useInView();
 
   const getRandomColor = () => {
     const colors = [
@@ -39,6 +23,7 @@ function Home() {
     const randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
   };
+
   return (
     <div
       style={{
@@ -48,14 +33,23 @@ function Home() {
         backgroundRepeat: "no-repeat",
         minHeight: "100vh",
         color: "white",
+        overflowY: "scroll",
       }}
     >
       <NewNavbar state="Home" />
       {state.loading ? (
         <Loader />
       ) : (
-        <Container className="text-center mt-5">
-          <section className="quotes hidden">
+        <Container
+          className="text-center"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
+          <div className="quotes">
             <h1>
               Your daily dose of inspiration awaits – start to read or write
               with us.
@@ -67,11 +61,17 @@ function Home() {
             >
               Get Started
             </button>
-          </section>
-          <div className="d-flex flex-wrap justify-content-center mt-5">
+          </div>
+          <h3>Popular Posts</h3>
+          <div
+            className="d-flex flex-wrap justify-content-center mt-5"
+            ref={ref}
+          >
             {state.data.slice(0, 10).map((card) => (
               <Card
-                className="cards hidden"
+                className={`cards ${
+                  inView ? "animate--fade-in-right" : "hidden"
+                }`}
                 bg={getRandomColor().toLowerCase()}
                 key={card._id}
                 style={{ width: "18rem", margin: "10px" }}
