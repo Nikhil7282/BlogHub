@@ -18,13 +18,15 @@ function BreadCrumbs() {
         // console.log(breadcrumbsPath);
         const isLastLink = idx === pathnames.length - 1;
         return isLastLink ? (
-          <Breadcrumb.Item key={idx} active>
+          <Breadcrumb.Item key={idx} active style={{ color: "#343a40" }}>
             {name}
           </Breadcrumb.Item>
         ) : (
           // <span key={idx}>/ {name}</span>
           <Breadcrumb.Item key={idx}>
-            <Link to={breadcrumbsPath}>{name}</Link>
+            <Link to={breadcrumbsPath} style={{ color: "#343a40" }}>
+              {name}
+            </Link>
           </Breadcrumb.Item>
         );
       })}

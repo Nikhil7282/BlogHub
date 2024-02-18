@@ -13,6 +13,7 @@ import PostPage from "./Pages/PostsPages/PostPage";
 import NewNavbar from "./components/NewNavbar";
 import ForgotPassword from "./components/ForgetPassword/ForgetPassword";
 import ResetPassword from "./components/ForgetPassword/ResetPassword";
+import SavedPost from "./Pages/PostsPages/SavedPost";
 
 // export const url = "http://localhost:8000";
 export const url = "https://blohhub.onrender.com";
@@ -106,6 +107,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <PostPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="savedPosts"
+            element={
+              <ProtectedRoute>
+                <SavedPost />
               </ProtectedRoute>
             }
           />

@@ -25,15 +25,13 @@ function UserPost() {
   }, []);
 
   const deletePost = async (id) => {
+    // console.log(id);
     await axios
-      .delete(
-        `/blogs/deletePost/${id}`
-        // {
-        //   headers:{
-        //     Authorization:`Bearer ${sessionStorage.getItem("token")}`
-        //   }
-        // }
-      )
+      .delete(`${url}/blogs/deletePost/${id}`, {
+        headers: {
+          authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         toast.success(res.data.message);
         setUserPost(

@@ -8,26 +8,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { postContext } from "../context/globalContext";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 
 function Blog({ blog }) {
   const Navigate = useNavigate();
-  const auth = useAuth();
   const { state, dispatch } = useContext(postContext);
-
-  const getRandomColor = () => {
-    const colors = [
-      "Primary",
-      "Secondary",
-      "Success",
-      "Danger",
-      "Warning",
-      "Info",
-      "Dark",
-    ];
-    const randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex];
-  };
 
   const handleLike = async (id, userId) => {
     try {
@@ -106,9 +90,11 @@ function Blog({ blog }) {
 
   return (
     <Card
-      border={getRandomColor().toLocaleLowerCase()}
       className="cards"
       style={{
+        border: "1px solid #343a40",
+        backgroundColor: "#adb5bd",
+        color: "#495057",
         width: "30rem",
         boxShadow:
           "0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1)",
@@ -121,7 +107,7 @@ function Blog({ blog }) {
             src="/Avatar.png"
             alt="image"
             width="30px"
-            style={{ borderRadius: "10px" }}
+            style={{ borderRadius: "15px" }}
           />
           <div>
             <span style={{ marginLeft: "5px", display: "block" }}>
@@ -144,7 +130,13 @@ function Blog({ blog }) {
         <Card.Text>{blog.description}</Card.Text>
         <Card.Footer>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+            >
               {blog.likes.some((userId) => {
                 return userId == sessionStorage.getItem("userId");
               }) ? (
@@ -161,9 +153,7 @@ function Blog({ blog }) {
                   }}
                 />
               )}
-              <span style={{ marginLeft: "5px" }}>
-                {blog.likes.length} Likes
-              </span>
+              <span style={{ marginLeft: "5px" }}>{blog.likes.length}</span>
             </div>
             <div className="save" style={{ cursor: "pointer" }}>
               {localStorage.getItem("savedBlogs").includes(blog._id) ? (
