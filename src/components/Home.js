@@ -9,6 +9,7 @@ function Home() {
   const { state } = useContext(postContext);
   const navigate = useNavigate();
   const [ref, inView] = useInView();
+  const [ref1, inView1] = useInView();
 
   const getRandomColor = () => {
     const colors = [
@@ -49,12 +50,18 @@ function Home() {
             flexDirection: "column",
           }}
         >
-          <div className="quotes">
-            <h1>
+          <div className="quotes" ref={ref1}>
+            <h1 className={`${inView1 ? "animate--fade-in-right" : "hidden"}`}>
               Your daily dose of inspiration awaits – start to read or write
               with us.
             </h1>
-            <h5>Register and create your first blog.</h5>
+            <h5
+              className={`${
+                inView1 ? "animate--fade-in-left first" : "hidden"
+              }`}
+            >
+              Register and create your first blog.
+            </h5>
             <button
               className="getStartedButton"
               onClick={() => navigate("/login")}
