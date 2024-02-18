@@ -196,6 +196,11 @@ body {
   animation: fadein-right 2s;
   -webkit-animation: fadein-right 2s; /* Safari and Chrome */
 }
+
+.animate--fade-in-left {
+  animation: fadein-left 2s;
+  -webkit-animation: fadein-left 2s;
+}
 .animate--fade-in-right:nth-child(2) {
   animation-delay: 200ms;
 }
@@ -223,11 +228,21 @@ body {
 .animate--fade-in-right:nth-child(10) {
   animation-delay: 1000ms;
 }
+@keyframes fadein-left {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
 
 @keyframes fadein-right {
   from {
     opacity: 0;
-    transform: translateX(80px);
+    transform: translateX(100px);
   }
   to {
     opacity: 1;
