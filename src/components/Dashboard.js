@@ -14,6 +14,7 @@ function Dashboard() {
   useEffect(() => {
     fetchData();
   }, []);
+
   const fetchData = useCallback(async () => {
     try {
       dispatch({ type: "Fetching" });

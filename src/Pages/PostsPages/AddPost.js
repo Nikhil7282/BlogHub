@@ -27,6 +27,14 @@ function AddPost() {
   }, []);
 
   const handleSubmit = () => {
+    if (
+      userBlog.title === "" ||
+      userBlog.description === "" ||
+      userBlog.content === ""
+    ) {
+      toast.info("Please Fill All Fields");
+      return;
+    }
     setAddingPost(true);
     axios
       .post(`${url}/blogs`, userBlog, {
@@ -36,6 +44,7 @@ function AddPost() {
       })
       .then((res) => {
         setAddingPost(false);
+        // console.log(res);
         dispatch({ type: "Add_Post", payload: res.data.data });
         toast.success(res.data.message);
         Navigate("/user/dashboard");
@@ -43,7 +52,7 @@ function AddPost() {
       .catch((error) => {
         setAddingPost(false);
         toast.error(error.response.data.message);
-        console.log(error);
+        // console.log(error);
       });
   };
 

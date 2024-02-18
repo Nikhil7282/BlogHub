@@ -31,6 +31,7 @@ function PaginationComp({ page, setPage, length }) {
       {[...Array(length)].map((_, i) => {
         return (
           <Pagination.Item
+            style={{ color: "#343a40" }}
             key={i}
             active={i + 1 === page}
             onClick={() => {

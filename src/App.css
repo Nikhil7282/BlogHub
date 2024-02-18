@@ -57,8 +57,10 @@ body {
   margin-left: 20px;
 }
 .navbar .leftSide > #hidden {
+  height: 100vh;
   display: flex;
 }
+
 .navbar .home-leftSide .links a {
   text-decoration: none;
   color: white;
@@ -138,11 +140,17 @@ body {
   z-index: 1;
 }
 .result-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  cursor: pointer;
   transition: ease all 0.5s;
 }
 .result-list-item:hover {
+  cursor: pointer;
   background-color: lightgray;
-  color: aliceblue;
+  color: #343a40;
 }
 
 .breadcrumbs {
@@ -371,10 +379,10 @@ body {
     position: absolute;
     left: 0px;
     top: 80px;
-    height: 230px;
+    height: 100vh;
     z-index: 1;
-    max-height: 230px;
-    width: 100%;
+    max-height: 100vh;
+    width: 100vw;
     background-color: black;
     display: flex;
     flex-direction: column;

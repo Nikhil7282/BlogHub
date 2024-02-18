@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { HiCubeTransparent } from "react-icons/hi";
-import { IoReorderThree } from "react-icons/io5";
+import { IoReorderThree, IoClose } from "react-icons/io5";
 import "../App.css";
 import { Outlet, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
@@ -42,13 +42,14 @@ function NewNavbar({ state }) {
         <div>
           <div className="navbar">
             <div className="leftSide">
-              <div className="links" id={showLinks ? "hidden" : ""}>
+              <div className="links" id={showLinks ? "hidden" : "show"}>
                 <a style={{ display: showLinks ? "none" : "" }}>
                   <HiCubeTransparent className="icon" />
                 </a>
                 <a href="/user/dashboard">BlogHub</a>
                 <a href="/user/addpost">Add Post</a>
                 <a href="/user/userpost">My Post</a>
+                <a href="/user/savedPosts">Saved</a>
                 <a onClick={logout}>Logout</a>
               </div>
               <button
@@ -56,7 +57,7 @@ function NewNavbar({ state }) {
                   setShowLinks(!showLinks);
                 }}
               >
-                <IoReorderThree />
+                {showLinks ? <IoClose /> : <IoReorderThree />}
               </button>
             </div>
             <div

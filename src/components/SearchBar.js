@@ -50,7 +50,7 @@ const SearchBar = () => {
                 handleList(post._id, post);
               }}
             >
-              <p className="result-title">{post.title}</p>
+              {post.title}
             </div>
           ))}
         </div>
