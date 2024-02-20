@@ -89,7 +89,6 @@ function Home() {
                 <Card.Body>
                   <Card.Title>{card.title}</Card.Title>
                   <Card.Text>{card.description}</Card.Text>
-                  <Card.Text>{card.content}</Card.Text>
                 </Card.Body>
               </Card>
             ))}
