@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { postContext } from "../context/globalContext";
 import { useNavigate } from "react-router-dom";
@@ -8,14 +8,28 @@ const SearchBar = () => {
   const [results, setResults] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const navigate = useNavigate();
-  window.addEventListener("click", (e) => {
-    if (
-      e.target.className !== "result-title" ||
-      e.target.className !== "result-list-item"
-    ) {
-      setShowSearchResults(false);
-    } else return;
-  });
+
+  useEffect(() => {
+    window.addEventListener("click", (e) => {
+      // console.log(e);
+      if (
+        e.target.className !== "result-title" ||
+        e.target.className !== "result-list-item"
+      ) {
+        setShowSearchResults(false);
+      } else return;
+    });
+    return () => {
+      window.removeEventListener("click", (e) => {
+        if (
+          e.target.className !== "result-title" ||
+          e.target.className !== "result-list-item"
+        ) {
+          setShowSearchResults(false);
+        } else return;
+      });
+    };
+  }, []);
 
   const handleChange = (e) => {
     const filteredPost = state.data.filter((post) => {

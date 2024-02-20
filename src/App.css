@@ -16,6 +16,10 @@ body {
   transition: transform 0.3s ease-in-out;
 }
 
+.card-body:hover {
+  cursor: pointer;
+}
+
 .cards:hover {
   transform: translateY(-5px) scale(1.08);
 }
@@ -194,7 +198,7 @@ body {
 
 .animate--fade-in-right {
   animation: fadein-right 2s;
-  -webkit-animation: fadein-right 2s; /* Safari and Chrome */
+  -webkit-animation: fadein-right 2s;
 }
 
 .animate--fade-in-left {
@@ -243,39 +247,6 @@ body {
   from {
     opacity: 0;
     transform: translateX(100px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0px);
-  }
-}
-@-moz-keyframes fadein-right {
-  /* Firefox */
-  from {
-    opacity: 0;
-    transform: translateX(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0px);
-  }
-}
-@-webkit-keyframes fadein-right {
-  /* Safari and Chrome */
-  from {
-    opacity: 0;
-    transform: translateX(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0px);
-  }
-}
-@-o-keyframes fadein-right {
-  /* Opera */
-  from {
-    opacity: 0;
-    transform: translateX(40px);
   }
   to {
     opacity: 1;
@@ -352,6 +323,11 @@ body {
   height: 100vh;
 }
 
+.ql-syntax {
+  background-color: black;
+  color: white;
+  padding: 10px;
+}
 @media only screen and (max-width: 768px) {
   .comment-container {
     margin-top: 10px !important;

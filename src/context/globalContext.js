@@ -21,15 +21,13 @@ export const reducer = (state, action) => {
       return post._id === action.payload.postId;
     });
     filteredPost.likes = [...filteredPost.likes, action.payload.userId];
-    const newData = [...state.data, filteredPost];
-    return { ...state, loading: false, data: newData };
+    return { ...state, loading: false, data: [...state.data] };
   } else if (action.type === "DisLike_Post") {
     const filteredPost = state.data.find((post) => {
       return post._id === action.payload.postId;
     });
     filteredPost.likes.splice(action.payload.index, 1);
-    const newData = [...state.data, filteredPost];
-    return { ...state, loading: false, data: newData };
+    return { ...state, loading: false, data: [...state.data] };
   } else {
     return state;
   }
