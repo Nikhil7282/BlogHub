@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { postContext } from "../../context/globalContext";
 import { lineSpinner } from "ldrs";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 function AddPost() {
   lineSpinner.register();
@@ -17,8 +19,8 @@ function AddPost() {
   const [userBlog, setUserBlog] = useState({
     title: "",
     description: "",
-    content: "",
   });
+  const [body, setBody] = useState("");
 
   useEffect(() => {
     if (inputRefs.current[0]) {
@@ -27,21 +29,21 @@ function AddPost() {
   }, []);
 
   const handleSubmit = () => {
-    if (
-      userBlog.title === "" ||
-      userBlog.description === "" ||
-      userBlog.content === ""
-    ) {
+    if (userBlog.title === "" || userBlog.description === "" || body === "") {
       toast.info("Please Fill All Fields");
       return;
     }
     setAddingPost(true);
     axios
-      .post(`${url}/blogs`, userBlog, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-        },
-      })
+      .post(
+        `${url}/blogs`,
+        { ...userBlog, content: body },
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        }
+      )
       .then((res) => {
         setAddingPost(false);
         // console.log(res);
@@ -58,6 +60,7 @@ function AddPost() {
 
   return (
     <Container
+      fluid
       style={{
         height: "fit-content",
         width: "50vw",
@@ -99,16 +102,7 @@ function AddPost() {
         </Form.Group>
         <Form.Group controlId="password">
           <Form.Label>Content</Form.Label>
-          <Form.Control
-            ref={(input) => (inputRefs.current[2] = input)}
-            as="textarea"
-            rows={3}
-            name="content"
-            value={userBlog.content}
-            onChange={(e) => {
-              setUserBlog({ ...userBlog, content: e.target.value });
-            }}
-          />
+          <ReactQuill theme="snow" value={body} onChange={setBody} />
         </Form.Group>
         <Button className="mt-4" variant="primary" onClick={handleSubmit}>
           {addingPost ? (

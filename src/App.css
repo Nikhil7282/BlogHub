@@ -16,6 +16,10 @@ body {
   transition: transform 0.3s ease-in-out;
 }
 
+.card-body:hover {
+  cursor: pointer;
+}
+
 .cards:hover {
   transform: translateY(-5px) scale(1.08);
 }
@@ -201,7 +205,6 @@ body {
   animation: fadein-left 2s;
   -webkit-animation: fadein-left 2s;
 }
-
 .animate--fade-in-right:nth-child(2) {
   animation-delay: 200ms;
 }
@@ -229,7 +232,6 @@ body {
 .animate--fade-in-right:nth-child(10) {
   animation-delay: 1000ms;
 }
-
 @keyframes fadein-left {
   from {
     opacity: 0;
@@ -321,6 +323,11 @@ body {
   height: 100vh;
 }
 
+.ql-syntax {
+  background-color: black;
+  color: white;
+  padding: 10px;
+}
 @media only screen and (max-width: 768px) {
   .comment-container {
     margin-top: 10px !important;

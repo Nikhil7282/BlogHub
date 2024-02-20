@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { AiFillLike } from "react-icons/ai";
 import { HiOutlineSaveAs } from "react-icons/hi";
@@ -71,21 +71,23 @@ function Blog({ blog }) {
   };
 
   const handleSavePost = async (id) => {
-    try {
-      let res = await axios.post(
-        `${url}/blogs/addSavedPost`,
-        { blogId: id },
-        {
-          headers: {
-            authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        }
-      );
-      toast.success(res.data.message);
-    } catch (error) {
-      toast.error(error.response.data.message);
-      console.log(error.message);
-    }
+    toast.info("This Feature is yet to be implemented");
+    return;
+    // try {
+    //   let res = await axios.post(
+    //     `${url}/blogs/addSavedPost`,
+    //     { blogId: id },
+    //     {
+    //       headers: {
+    //         authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    //       },
+    //     }
+    //   );
+    //   toast.success(res.data.message);
+    // } catch (error) {
+    //   toast.error(error.response.data.message);
+    //   console.log(error.message);
+    // }
   };
 
   return (
@@ -95,7 +97,7 @@ function Blog({ blog }) {
         border: "1px solid #343a40",
         backgroundColor: "#adb5bd",
         color: "#495057",
-        width: "30rem",
+        width: "25rem",
         boxShadow:
           "0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1)",
         margin: "8px",
@@ -118,6 +120,7 @@ function Blog({ blog }) {
         </div>
       </Card.Header>
       <Card.Body
+        className="card-body"
         onClick={() =>
           Navigate(`/user/postPage/${blog._id}`, {
             state: { card: blog },
@@ -128,48 +131,49 @@ function Blog({ blog }) {
           <h3>{blog.title}</h3>
         </Card.Title>
         <Card.Text>{blog.description}</Card.Text>
-        <Card.Footer>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                cursor: "pointer",
-              }}
-            >
-              {blog.likes.some((userId) => {
-                return userId == sessionStorage.getItem("userId");
-              }) ? (
-                <AiFillLike
-                  style={{ color: "red" }}
-                  onClick={() => {
-                    handleDisLike(blog._id, sessionStorage.getItem("userId"));
-                  }}
-                />
-              ) : (
-                <AiFillLike
-                  onClick={() => {
-                    handleLike(blog._id, sessionStorage.getItem("userId"));
-                  }}
-                />
-              )}
-              <span style={{ marginLeft: "5px" }}>{blog.likes.length}</span>
-            </div>
-            <div className="save" style={{ cursor: "pointer" }}>
-              {localStorage.getItem("savedBlogs").includes(blog._id) ? (
-                <IoCheckmarkDoneCircleOutline />
-              ) : (
-                <HiOutlineSaveAs
-                  style={{ fontSize: "20px" }}
-                  onClick={() => {
-                    handleSavePost(blog._id);
-                  }}
-                />
-              )}
-            </div>
-          </div>
-        </Card.Footer>
       </Card.Body>
+      <Card.Footer>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div
+            className="like-btn"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              cursor: "pointer",
+            }}
+          >
+            {blog.likes.some((userId) => {
+              return userId == sessionStorage.getItem("userId");
+            }) ? (
+              <AiFillLike
+                style={{ color: "red" }}
+                onClick={() => {
+                  handleDisLike(blog._id, sessionStorage.getItem("userId"));
+                }}
+              />
+            ) : (
+              <AiFillLike
+                onClick={() => {
+                  handleLike(blog._id, sessionStorage.getItem("userId"));
+                }}
+              />
+            )}
+            <span style={{ marginLeft: "5px" }}>{blog.likes.length}</span>
+          </div>
+          <div className="save-btn" style={{ cursor: "pointer" }}>
+            {localStorage.getItem("savedBlogs").includes(blog._id) ? (
+              <IoCheckmarkDoneCircleOutline />
+            ) : (
+              <HiOutlineSaveAs
+                style={{ fontSize: "20px" }}
+                onClick={() => {
+                  handleSavePost(blog._id);
+                }}
+              />
+            )}
+          </div>
+        </div>
+      </Card.Footer>
     </Card>
   );
 }

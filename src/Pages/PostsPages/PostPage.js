@@ -75,8 +75,20 @@ function PostPage() {
         >
           <h1>{card.title}</h1>
           <p>{card.description}</p>
-          <p>{card.content}</p>
+          <div dangerouslySetInnerHTML={{ __html: card.content }} />
           <p>Likes: {card.likes.length}</p>
+        </Col>
+        <Col
+          xs={12}
+          // md={8}
+          lg={6}
+          className="comment-container"
+          style={{
+            overflowY: "scroll",
+            position: "relative",
+            height: "50vh",
+          }}
+        >
           <Form>
             <Form.Group controlId="comment" style={{ width: "100%" }}>
               <Form.Label>Add a comment:</Form.Label>
@@ -97,18 +109,6 @@ function PostPage() {
               Submit
             </Button>
           </Form>
-        </Col>
-        <Col
-          xs={12}
-          // md={8}
-          lg={6}
-          className="comment-container"
-          style={{
-            overflowY: "scroll",
-            position: "relative",
-            height: "50vh",
-          }}
-        >
           <div className="comment_list">
             {state.data.length > 0 ? (
               <>
