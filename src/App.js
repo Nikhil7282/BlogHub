@@ -1,19 +1,26 @@
 import "./App.css";
-import Login from "./Pages/UserPages/Login";
+import { Suspense, lazy } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import SignUp from "./Pages/UserPages/SignUp";
 import Home from "./components/Home";
 import PublicRoute from "./helpers/PublicRoute";
 import ProtectedRoute from "./helpers/ProtectedRoute";
-import AddPost from "./Pages/PostsPages/AddPost";
-import UserPost from "./Pages/PostsPages/UserPost";
-import EditPost from "./Pages/PostsPages/EditPost";
-import Dashboard from "./components/Dashboard";
-import PostPage from "./Pages/PostsPages/PostPage";
 import NewNavbar from "./components/NewNavbar";
-import ForgotPassword from "./components/ForgetPassword/ForgetPassword";
-import ResetPassword from "./components/ForgetPassword/ResetPassword";
-import SavedPost from "./Pages/PostsPages/SavedPost";
+import Loader from "./components/Loader.js";
+
+const Login = lazy(() => import("./Pages/UserPages/Login.js"));
+const SignUp = lazy(() => import("./Pages/UserPages/SignUp.js"));
+const AddPost = lazy(() => import("./Pages/PostsPages/AddPost"));
+const UserPost = lazy(() => import("./Pages/PostsPages/UserPost"));
+const EditPost = lazy(() => import("./Pages/PostsPages/EditPost"));
+const Dashboard = lazy(() => import("./components/Dashboard"));
+const PostPage = lazy(() => import("./Pages/PostsPages/PostPage"));
+const ForgetPassword = lazy(() =>
+  import("./components/ForgetPassword/ForgetPassword.js")
+);
+const ResetPassword = lazy(() =>
+  import("./components/ForgetPassword/ResetPassword.js")
+);
+const SavedPost = lazy(() => import("./Pages/PostsPages/SavedPost.js"));
 
 // export const url = "http://localhost:8000";
 export const url = "https://blohhub.onrender.com";
@@ -34,7 +41,9 @@ function App() {
           path="/login"
           element={
             <PublicRoute>
-              <Login />
+              <Suspense fallback={<Loader />}>
+                <Login />
+              </Suspense>
             </PublicRoute>
           }
         />
@@ -42,7 +51,9 @@ function App() {
           path="/register"
           element={
             <PublicRoute>
-              <SignUp />
+              <Suspense fallback={<Loader />}>
+                <SignUp />
+              </Suspense>
             </PublicRoute>
           }
         />
@@ -50,7 +61,9 @@ function App() {
           path="/forgetPassword"
           element={
             <PublicRoute>
-              <ForgotPassword />
+              <Suspense fallback={<Loader />}>
+                <ForgetPassword />
+              </Suspense>
             </PublicRoute>
           }
         />
@@ -58,7 +71,9 @@ function App() {
           path="/resetPassword/:token"
           element={
             <PublicRoute>
-              <ResetPassword />
+              <Suspense fallback={<Loader />}>
+                <ResetPassword />
+              </Suspense>
             </PublicRoute>
           }
         />
@@ -74,7 +89,9 @@ function App() {
             path="dashboard"
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <Suspense fallback={<Loader />}>
+                  <Dashboard />
+                </Suspense>
               </ProtectedRoute>
             }
           />
@@ -82,7 +99,9 @@ function App() {
             path="addpost"
             element={
               <ProtectedRoute>
-                <AddPost />
+                <Suspense fallback={<Loader />}>
+                  <AddPost />
+                </Suspense>
               </ProtectedRoute>
             }
           />
@@ -90,7 +109,9 @@ function App() {
             path="userpost"
             element={
               <ProtectedRoute>
-                <UserPost />
+                <Suspense fallback={<Loader />}>
+                  <UserPost />
+                </Suspense>
               </ProtectedRoute>
             }
           />
@@ -98,7 +119,9 @@ function App() {
             path="editpost"
             element={
               <ProtectedRoute>
-                <EditPost />
+                <Suspense fallback={<Loader />}>
+                  <EditPost />
+                </Suspense>
               </ProtectedRoute>
             }
           />
@@ -106,7 +129,9 @@ function App() {
             path="postPage/:id"
             element={
               <ProtectedRoute>
-                <PostPage />
+                <Suspense fallback={<Loader />}>
+                  <PostPage />
+                </Suspense>
               </ProtectedRoute>
             }
           />
@@ -114,7 +139,9 @@ function App() {
             path="savedPosts"
             element={
               <ProtectedRoute>
-                <SavedPost />
+                <Suspense fallback={<Loader />}>
+                  <SavedPost />
+                </Suspense>
               </ProtectedRoute>
             }
           />

@@ -19,7 +19,9 @@ body {
 .card-body:hover {
   cursor: pointer;
 }
-
+.ql-container {
+  min-height: 100px;
+}
 .cards:hover {
   transform: translateY(-5px) scale(1.08);
 }
@@ -74,7 +76,10 @@ body {
 .navbar .home-leftSide .links a > .icon {
   font-size: 40px;
 }
-
+.navbar .leftSide .links {
+  display: flex;
+  align-items: center;
+}
 .navbar .leftSide .links a {
   text-decoration: none;
   color: white;
@@ -86,6 +91,10 @@ body {
   cursor: pointer;
   color: lightgray;
 }
+.navbar .leftSide .links a:active {
+  color: rgb(110, 99, 99);
+}
+
 .navbar .leftSide .links a > .icon {
   font-size: 40px;
 }
@@ -103,29 +112,29 @@ body {
   font-size: 20px;
   margin-right: 25px;
 }
+.logoutSpan {
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  margin-left: 15px;
+  transition: 0.5s all ease;
+}
+.logoutSpan:hover {
+  cursor: pointer;
+  color: lightgray;
+}
+.logoutSpan:active {
+  color: rgb(110, 99, 99);
+}
 
 .navbar .rightSide .searchBar > input {
-  width: 220px;
+  width: 20vw;
   height: 30px;
   border: none;
   border-radius: 4px;
   font-size: 20px;
   padding-left: 15px;
   color: black;
-}
-.navbar .rightSide .searchBar > input:focus {
-  outline: none;
-}
-.navbar .rightSide .searchBar > button:hover {
-  cursor: pointer;
-}
-.navbar .rightSide .searchBar > button {
-  height: fit-content;
-  width: fit-content;
-  font-size: 20px;
-  border-radius: 5px;
-  margin-left: 5px;
-  border: none;
 }
 
 .results-list {
@@ -134,7 +143,7 @@ body {
   background-color: white;
   display: flex;
   flex-direction: column;
-  width: 220px;
+  width: 25vw;
   box-shadow: 0px 0px 8px #ddd;
   border-radius: 10px;
   margin-top: 1rem;
@@ -327,6 +336,8 @@ body {
   background-color: black;
   color: white;
   padding: 10px;
+  width: 100%;
+  overflow: scroll;
 }
 @media only screen and (max-width: 768px) {
   .comment-container {
@@ -344,17 +355,20 @@ body {
   .navbar .leftSide .links a {
     font-size: 15px;
   }
+  .logoutSpan {
+    font-size: 15px;
+  }
 }
 
 @media only screen and (max-width: 650px) {
   .navbar .rightSide .searchBar {
-    position: absolute;
-    /* margin-right: 40px;  */
+    /* position: absolute; */
+    width: 70%;
   }
-  .navbar .rightSide .searchBar > button {
-    margin-right: 15px;
-    /* margin-right: 40px;  */
+  .navbar .rightSide .searchBar > input {
+    width: 30vw;
   }
+
   .navbar .leftSide > button {
     display: flex;
     border: none;
@@ -363,6 +377,7 @@ body {
     color: white;
     background-color: black;
   }
+
   .navbar .leftSide .links {
     display: none;
   }

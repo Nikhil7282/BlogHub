@@ -60,7 +60,6 @@ function AddPost() {
 
   return (
     <Container
-      fluid
       style={{
         height: "fit-content",
         width: "50vw",
@@ -100,7 +99,7 @@ function AddPost() {
             }}
           />
         </Form.Group>
-        <Form.Group controlId="password">
+        <Form.Group controlId="password" style={{ height: "fit-content" }}>
           <Form.Label>Content</Form.Label>
           <ReactQuill theme="snow" value={body} onChange={setBody} />
         </Form.Group>

@@ -2,14 +2,9 @@ import axios from "axios";
 import { AiFillDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { url } from "../App";
-// import { useState } from "react";
-// import { lineSpinner } from "ldrs";
 
 function Comment({ comment, id, dispatch }) {
-  // const [isLoading, setIsLoading] = useState(false);
-  // lineSpinner.register();
   const deleteComment = (commentId) => {
-    // setIsLoading(true);
     axios
       .delete(`${url}/blogs/comment/${id}`, {
         headers: {
@@ -20,14 +15,11 @@ function Comment({ comment, id, dispatch }) {
           commentId: commentId,
         },
       })
-      // authFetchDel(`/blogs/comment/${id}`,{data:{commentId:commentId}})
       .then((res) => {
-        // setIsLoading(false);
         dispatch({ type: "DeleteComment", payload: commentId });
         toast.success(res.data.message);
       })
       .catch((error) => {
-        // setIsLoading(false);
         console.log(error);
         toast.error(error.response.data.message);
       });
