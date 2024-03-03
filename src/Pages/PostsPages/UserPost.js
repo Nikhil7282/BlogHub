@@ -57,7 +57,7 @@ function UserPost() {
             >
               <Card.Body>
                 <Card.Title>{card.title}</Card.Title>
-                <Card.Text>{card.description}</Card.Text>
+                {/* <Card.Text>{card.description}</Card.Text> */}
                 <Card.Footer>
                   <div className="btn-group d-flex justify-content-between">
                     <button

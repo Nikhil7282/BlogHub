@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext} from "react";
 import { Card } from "react-bootstrap";
 import { AiFillLike } from "react-icons/ai";
 import { HiOutlineSaveAs } from "react-icons/hi";
@@ -130,7 +130,6 @@ function Blog({ blog }) {
         <Card.Title>
           <h3>{blog.title}</h3>
         </Card.Title>
-        <Card.Text>{blog.description}</Card.Text>
       </Card.Body>
       <Card.Footer>
         <div style={{ display: "flex", justifyContent: "space-between" }}>

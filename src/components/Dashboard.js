@@ -1,11 +1,20 @@
 import { url } from "../App";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  Suspense,
+  lazy,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Container } from "react-bootstrap";
 import axios from "axios";
 import { postContext } from "../context/globalContext.js";
 import Loader from "./Loader.js";
-import PaginationComp from "./PaginationComp.js";
-import Blog from "./Blog.js";
+
+//lazy loading
+const Blog = lazy(() => import("./Blog.js"));
+const PaginationComp = lazy(() => import("./PaginationComp.js"));
 
 function Dashboard() {
   const { state, dispatch } = useContext(postContext);
@@ -37,19 +46,23 @@ function Dashboard() {
           {state.data.length === 0 ? (
             <h1>No Posts Yet..</h1>
           ) : (
-            state.data
-              .slice(page * 10 - 10, page * 10)
-              .map((card) => <Blog blog={card} key={card._id} />)
+            state.data.slice(page * 10 - 10, page * 10).map((card) => (
+              <Suspense fallback={<Loader />} key={card._id}>
+                <Blog blog={card} key={card._id} />
+              </Suspense>
+            ))
           )}
         </div>
       </Container>
-      <div className="d-flex align-items-lg-center justify-content-center">
+      <div className="d-flex align-items-lg-center justify-content-center mt-5">
         {state.data.length > 0 && (
-          <PaginationComp
-            page={page}
-            setPage={setPage}
-            length={state.data.length / 10}
-          />
+          <Suspense fallback={<Loader />}>
+            <PaginationComp
+              page={page}
+              setPage={setPage}
+              length={state.data.length / 10}
+            />
+          </Suspense>
         )}
       </div>
     </div>

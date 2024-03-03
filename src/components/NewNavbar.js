@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { HiCubeTransparent } from "react-icons/hi";
 import { IoReorderThree, IoClose } from "react-icons/io5";
 import "../App.css";
@@ -50,7 +50,9 @@ function NewNavbar({ state }) {
                 <a href="/user/addpost">Add Post</a>
                 <a href="/user/userpost">My Post</a>
                 <a href="/user/savedPosts">Saved</a>
-                <a onClick={logout}>Logout</a>
+                {/* <a onClick={logout} className="logoutSpan">
+                  Logout
+                </a> */}
               </div>
               <button
                 onClick={() => {
@@ -65,8 +67,9 @@ function NewNavbar({ state }) {
               style={{ display: showSearch ? "" : "none" }}
             >
               <SearchBar />
-              {/* <input type="text" placeholder="Search" />
-              <button><IoSearch/></button> */}
+              <a onClick={logout} className="logoutSpan">
+                Logout
+              </a>
             </div>
           </div>
           <BreadCrumbs />

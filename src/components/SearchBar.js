@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { IoSearch } from "react-icons/io5";
 import { postContext } from "../context/globalContext";
 import { useNavigate } from "react-router-dom";
 
@@ -51,9 +50,6 @@ const SearchBar = () => {
   return (
     <div className="searchBar">
       <input type="text" placeholder="Search" onChange={handleChange} />
-      <button onClick={handleClick}>
-        <IoSearch />
-      </button>
       {showSearchResults && results.length > 0 ? (
         <div className="results-list">
           {results.map((post) => (
