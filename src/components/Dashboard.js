@@ -19,9 +19,11 @@ const PaginationComp = lazy(() => import("./PaginationComp.js"));
 function Dashboard() {
   const { state, dispatch } = useContext(postContext);
   const [page, setPage] = useState(1);
+  const [savedBlogs, setSavedBlogs] = useState([]);
 
   useEffect(() => {
     fetchData();
+    fetchSavedBlogs();
   }, []);
 
   const fetchData = useCallback(async () => {
@@ -34,6 +36,15 @@ function Dashboard() {
       console.log(error);
     }
   }, [state]);
+
+  const fetchSavedBlogs = async () => {
+    const res = await axios.get(`${url}/blogs/savedPosts?populate=false`, {
+      headers: {
+        authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    });
+    setSavedBlogs(res.data.data);
+  };
 
   if (state.loading === true) {
     return <Loader />;
@@ -48,7 +59,11 @@ function Dashboard() {
           ) : (
             state.data.slice(page * 10 - 10, page * 10).map((card) => (
               <Suspense fallback={<Loader />} key={card._id}>
-                <Blog blog={card} key={card._id} />
+                <Blog
+                  blog={card}
+                  savedBlogs={savedBlogs}
+                  setSavedBlogs={setSavedBlogs}
+                />
               </Suspense>
             ))
           )}

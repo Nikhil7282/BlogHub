@@ -1,4 +1,4 @@
-import React, { useContext} from "react";
+import React, { useContext, useState } from "react";
 import { Card } from "react-bootstrap";
 import { AiFillLike } from "react-icons/ai";
 import { HiOutlineSaveAs } from "react-icons/hi";
@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { postContext } from "../context/globalContext";
 import { useNavigate } from "react-router-dom";
 
-function Blog({ blog }) {
+function Blog({ blog, savedBlogs, setSavedBlogs }) {
   const Navigate = useNavigate();
   const { state, dispatch } = useContext(postContext);
 
@@ -71,23 +71,24 @@ function Blog({ blog }) {
   };
 
   const handleSavePost = async (id) => {
-    toast.info("This Feature is yet to be implemented");
-    return;
-    // try {
-    //   let res = await axios.post(
-    //     `${url}/blogs/addSavedPost`,
-    //     { blogId: id },
-    //     {
-    //       headers: {
-    //         authorization: `Bearer ${sessionStorage.getItem("token")}`,
-    //       },
-    //     }
-    //   );
-    //   toast.success(res.data.message);
-    // } catch (error) {
-    //   toast.error(error.response.data.message);
-    //   console.log(error.message);
-    // }
+    // toast.info("This Feature is yet to be implemented");
+    // return;
+    try {
+      let res = await axios.post(
+        `${url}/blogs/addSavedPost`,
+        { blogId: id },
+        {
+          headers: {
+            authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        }
+      );
+      setSavedBlogs(res.data.data);
+      toast.success(res.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error.message);
+    }
   };
 
   return (
@@ -160,7 +161,7 @@ function Blog({ blog }) {
             <span style={{ marginLeft: "5px" }}>{blog.likes.length}</span>
           </div>
           <div className="save-btn" style={{ cursor: "pointer" }}>
-            {localStorage.getItem("savedBlogs").includes(blog._id) ? (
+            {savedBlogs.includes(blog._id) ? (
               <IoCheckmarkDoneCircleOutline />
             ) : (
               <HiOutlineSaveAs
