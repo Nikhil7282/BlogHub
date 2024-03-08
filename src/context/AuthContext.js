@@ -6,18 +6,18 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const login = async (username, password) => {
     const data = await loginUser(username, password);
     if (data) {
+      // console.log(data);
       sessionStorage.setItem("username", data.username);
       sessionStorage.setItem("userId", data.userId);
       sessionStorage.setItem("token", data.token);
-      localStorage.setItem("savedBlogs", data.savedBlogs);
       setUser({
         username: data.username,
         userId: data.userId,
         token: data.token,
-        savedBlogs: data.savedBlogs,
       });
       setIsLoggedIn(true);
     }
