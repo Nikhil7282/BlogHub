@@ -90,6 +90,20 @@ function Blog({ blog, savedBlogs, setSavedBlogs }) {
       console.log(error.message);
     }
   };
+  const handleRemoveSavedPost = async (id) => {
+    try {
+      let res = await axios.delete(`${url}/blogs/removeSavedPosts/${id}`, {
+        headers: {
+          authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      });
+      setSavedBlogs(res.data.data);
+      toast.success(res.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error.message);
+    }
+  };
 
   return (
     <Card
@@ -162,7 +176,12 @@ function Blog({ blog, savedBlogs, setSavedBlogs }) {
           </div>
           <div className="save-btn" style={{ cursor: "pointer" }}>
             {savedBlogs.includes(blog._id) ? (
-              <IoCheckmarkDoneCircleOutline />
+              <IoCheckmarkDoneCircleOutline
+                style={{ fontSize: "20px" }}
+                onClick={() => {
+                  handleRemoveSavedPost(blog._id);
+                }}
+              />
             ) : (
               <HiOutlineSaveAs
                 style={{ fontSize: "20px" }}

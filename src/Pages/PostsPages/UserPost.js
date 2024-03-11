@@ -48,39 +48,41 @@ function UserPost() {
     <div>
       <Container className="text-center mt-5">
         <div className="d-flex flex-wrap justify-content-center mt-5">
-          {/* {console.log(userPost)} */}
-          {userPost.map((card) => (
-            <Card
-              key={card._id}
-              style={{ width: "18rem", margin: "10px" }}
-              className="cards"
-            >
-              <Card.Body>
-                <Card.Title>{card.title}</Card.Title>
-                {/* <Card.Text>{card.description}</Card.Text> */}
-                <Card.Footer>
-                  <div className="btn-group d-flex justify-content-between">
-                    <button
-                      className="btn btn-secondary"
-                      onClick={() => {
-                        Navigate("/user/editpost", { state: card });
-                      }}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => {
-                        deletePost(card._id);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </Card.Footer>
-              </Card.Body>
-            </Card>
-          ))}
+          {userPost.length == 0 ? (
+            <h2>No Posts Yet</h2>
+          ) : (
+            userPost.map((card) => (
+              <Card
+                key={card._id}
+                style={{ width: "18rem", margin: "10px" }}
+                className="cards"
+              >
+                <Card.Body>
+                  <Card.Title>{card.title}</Card.Title>
+                  <Card.Footer>
+                    <div className="btn-group d-flex justify-content-between">
+                      <button
+                        className="btn btn-secondary"
+                        onClick={() => {
+                          Navigate("/user/editpost", { state: card });
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => {
+                          deletePost(card._id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </Card.Footer>
+                </Card.Body>
+              </Card>
+            ))
+          )}
         </div>
       </Container>
     </div>
