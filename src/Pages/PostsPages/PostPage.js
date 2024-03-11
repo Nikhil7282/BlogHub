@@ -98,8 +98,14 @@ function PostPage() {
             height: "50vh",
           }}
         >
-          <Form>
-            <Form.Group controlId="comment" style={{ width: "100%" }}>
+          <Form
+            style={{
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <Form.Group controlId="comment" style={{ width: "50%" }}>
               <Form.Label>Add a comment:</Form.Label>
               <Form.Control
                 as="textarea"
