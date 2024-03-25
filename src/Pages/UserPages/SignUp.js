@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import { lineSpinner } from "ldrs";
+import { signUpValidation } from "../../helpers/validation";
 export default function SignUp() {
   const auth = useAuth();
   lineSpinner.register();
@@ -23,17 +24,23 @@ export default function SignUp() {
     const email = formData.get("email");
     const password = formData.get("password");
     const phone = formData.get("phone");
-    // console.log(username,password);
     try {
+      const isValid = await signUpValidation.validate(
+        { username, email, password, phone },
+        { abortEarly: false }
+      );
       setIsSubmitting(true);
-      await auth.signup(username, email, password, phone);
+      await auth.signup(isValid);
       setIsSubmitting(false);
       toast.success("User Signed Up Successfully", { id: "login" });
       Navigate("/login");
     } catch (error) {
       setIsSubmitting(false);
-      console.log(error);
-      toast.error("Signing In Failed", { id: "login" });
+      if (error.inner) {
+        // console.log(error.inner[0].errors);
+        return toast.error(error.inner[0].errors[0], { id: "login" });
+      }
+      toast.error(error.response.data.message, { id: "login" });
     }
   };
   return (
