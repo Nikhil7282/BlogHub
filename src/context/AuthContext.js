@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const login = async (username, password) => {
+  const login = async ({ username, password }) => {
     const data = await loginUser(username, password);
     if (data) {
       // console.log(data);
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
       setIsLoggedIn(true);
     }
   };
-  const signup = async (username, email, password, phone) => {
+  const signup = async ({ username, email, password, phone }) => {
     const data = await signUpUser(username, email, password, phone);
     if (data) {
       return true;

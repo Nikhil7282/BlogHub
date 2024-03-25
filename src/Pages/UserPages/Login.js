@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import { lineSpinner } from "ldrs";
+import { loginValidation } from "../../helpers/validation";
 
 export default function Login() {
   const auth = useAuth();
@@ -24,13 +25,21 @@ export default function Login() {
     const password = formData.get("password");
     // console.log(username,password);
     try {
+      const isValid = await loginValidation.validate(
+        { username, password },
+        { abortEarly: false }
+      );
       setIsSubmitting(true);
-      await auth.login(username, password);
+      await auth.login(isValid);
       setIsSubmitting(false);
       toast.success(`Welcome ${username}`, { id: "login" });
       Navigate("/user/dashboard");
     } catch (error) {
       setIsSubmitting(false);
+      if (error.inner) {
+        // console.log(error.inner[0].errors);
+        return toast.error(error.inner[0].errors[0], { id: "login" });
+      }
       console.log(error);
       toast.error("Signing In Failed", { id: "login" });
     }

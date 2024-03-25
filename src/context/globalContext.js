@@ -7,6 +7,7 @@ export const initialState = {
   data: [],
   error: null,
 };
+
 export const reducer = (state, action) => {
   if (action.type === "Fetching") {
     return { ...state, loading: true };
@@ -37,9 +38,11 @@ export const postContext = createContext(initialState);
 
 const PostProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
   useEffect(() => {
     fetchData();
   }, []);
+
   const fetchData = useCallback(async () => {
     try {
       dispatch({ type: "Fetching" });
